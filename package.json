@@ -1,0 +1,40 @@
+{
+  "name": "telea",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "gen-types": "supabase gen types typescript --project-id rbdxrsvwmsbsivvedzyv > src/supabase/types.ts"
+  },
+  "dependencies": {
+    "@hey-api/client-fetch": "^0.4.0",
+    "@neondatabase/serverless": "^0.9.5",
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "^2.45.4",
+    "@tailwindcss/typography": "^0.5.15",
+    "drizzle-orm": "^0.33.0",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18",
+    "react-icons": "^5.3.0",
+    "react-markdown": "^9.0.1",
+    "swr": "^2.2.5",
+    "vercel": "^37.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "drizzle-kit": "^0.24.2",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
