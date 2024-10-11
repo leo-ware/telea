@@ -3,6 +3,7 @@ import { createClient } from "@/supabase/server"
 import Link from "next/link"
 
 const Events = async () => {
+    
     const client = createClient()
     const { data: upcomingEvents, error: upcomingEventsError } = await client
         .from('events')
@@ -16,6 +17,7 @@ const Events = async () => {
         .order('date', { ascending: false })
         .lt('date', new Date().toISOString())
         .eq('show', true)
+    
     return (
         <div className="w-full h-full">
             <div className="w-full flex flex-col items-center bg-amber-400 px-10 py-10">

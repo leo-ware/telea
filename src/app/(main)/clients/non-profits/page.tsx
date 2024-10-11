@@ -19,11 +19,11 @@ const NonProfits = () => {
                 </p>
             </div>
 
-            <div className="flex items-stretch text-[30px] px-10 md:px-40 border-y-4 border-selective-yellow">
-                <div className="flex items-center w-1/3 font-bold border-r-4 border-selective-yellow">
+            <div className="flex items-stretch text-[30px] px-10 md:px-40">
+                <div className="flex w-1/3 font-bold text-lg">
                     <div>What we can do</div>
                 </div>
-                <div className="pl-8 w-2/3 py-10 font-[400] leading-tight">
+                <div className="pl-10 w-2/3 pb-10 text-md leading-tight">
                     {[
                         "Strategic Planning and Development",
                         "Fund Development and Grant Writing",

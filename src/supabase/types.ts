@@ -12,23 +12,32 @@ export type Database = {
       client_categories: {
         Row: {
           id: number
+          link_description: string | null
+          link_text: string | null
           name: string | null
-          work_category: number | null
+          order: number | null
+          work_category_id: number | null
         }
         Insert: {
           id?: number
+          link_description?: string | null
+          link_text?: string | null
           name?: string | null
-          work_category?: number | null
+          order?: number | null
+          work_category_id?: number | null
         }
         Update: {
           id?: number
+          link_description?: string | null
+          link_text?: string | null
           name?: string | null
-          work_category?: number | null
+          order?: number | null
+          work_category_id?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "client_categories_work_category_fkey"
-            columns: ["work_category"]
+            foreignKeyName: "client_categories_work_category_id_fkey"
+            columns: ["work_category_id"]
             isOneToOne: false
             referencedRelation: "work_categories"
             referencedColumns: ["id"]
@@ -180,16 +189,25 @@ export type Database = {
       }
       work_categories: {
         Row: {
+          description: string | null
           id: number
           name: string | null
+          slug: string
+          tagline: string | null
         }
         Insert: {
+          description?: string | null
           id?: number
           name?: string | null
+          slug: string
+          tagline?: string | null
         }
         Update: {
+          description?: string | null
           id?: number
           name?: string | null
+          slug?: string
+          tagline?: string | null
         }
         Relationships: []
       }

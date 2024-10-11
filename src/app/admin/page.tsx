@@ -14,6 +14,9 @@ const AdminHome = () => {
                 <Link href="/admin/events">
                     Events
                 </Link>
+                <Link href="/admin/work_categories">
+                    Work Categories
+                </Link>
             </div>
         </div>
     )
