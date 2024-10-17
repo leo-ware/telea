@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Logo from "./Logo"
 import { FaArrowRight } from "react-icons/fa6"
+import { createClient } from "@/supabase/server"
 
 const footerLinks = {
     "Impact Consulting": [
@@ -20,26 +21,66 @@ const footerLinks = {
     ],
 }
 
-const Footer = () => {
+const Footer = async () => {
+    const client = createClient()
+
+    const [
+        { data: workCategories, error: workCategoriesError },
+        { data: clientCategories, error: clientCategoriesError }
+    ] = await Promise.all([
+        client.from("work_categories").select("*"),
+        client.from("client_categories").select("*")
+    ])
+
+    if (workCategoriesError || !workCategories) {
+        console.log(workCategoriesError)
+    }
+
+    if (clientCategoriesError || !clientCategories) {
+        console.log(clientCategoriesError)
+    }
+
     return (
         <div className="w-full h-fit p-10 md:px-44 flex gap-4 md:gap-0 flex-col md:flex-row justify-between bg-black text-white">
             <div className="md:ml-10 w-7/12 h-fit flex flex-col md:flex-row gap-1 md:gap-8">
-                {Object.entries(footerLinks).map(([top, more]) => (
-                    <div className="basis-fit grow mb-4" key={top}>
-                        <div className="text-lg md:font-bold md:mb-4">
-                            <Link href={top == "Company"? "/about" :"/clients/" + top.toLowerCase().replace(/\s/g, "-")}>
-                                {top}
-                            </Link>
-                        </div>
-                        <div className="text-md pl-4 md:pl-0 flex flex-col gap-1 md:gap-2">
-                            {more.map(({ name, href }) => (
-                                <Link href={href} className="max-w-44">
-                                    {name}
+                {(workCategories || []).map((workCategory) => {
+                    const myClients = clientCategories?.filter((clientCategory) => clientCategory.work_category_id === workCategory.id)
+                    return (
+                        <div className="basis-fit grow mb-4" key={workCategory.id}>
+                            <div className="text-lg md:font-bold md:mb-4">
+                                <Link href={"/work/" + workCategory.slug}>
+                                    {workCategory.name}
                                 </Link>
-                            ))}
+                            </div>
+                            <div className="text-md pl-4 md:pl-0 flex flex-col gap-1 md:gap-2">
+                                {(myClients || []).map((clientCategory) => (
+                                    <Link href={"/clients/" + clientCategory.slug} className="max-w-44">
+                                        {clientCategory.name}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
+                    )
+                })}
+
+                <div className="basis-fit grow mb-4">
+                    <div className="text-lg md:font-bold md:mb-4">
+                        <Link href="/about">
+                            Company
+                        </Link>
                     </div>
-                ))}
+                    <div className="text-md pl-4 md:pl-0 flex flex-col gap-1 md:gap-2">
+                        <Link href={"/events"} className="max-w-44">
+                            Events
+                        </Link>
+                        <Link href={"/careers"} className="max-w-44">
+                            Careers
+                        </Link>
+                        <Link href={"/people"} className="max-w-44">
+                            People
+                        </Link>
+                    </div>
+                </div>
 
             </div>
 

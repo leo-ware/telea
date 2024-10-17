@@ -1,17 +1,177 @@
 "use client"
 
 import AutoGrowTextarea from "@/components/AutoGrowTextArea";
+import ImgPicker from "@/components/ImgPicker";
 import Spinner from "@/components/Spinner";
 import { createClient } from "@/supabase/client";
 import { Database } from "@/supabase/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import { HiDotsVertical } from "react-icons/hi";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { MdAdd, MdClose, MdDelete, MdUndo } from "react-icons/md";
 
+const DND_ITEM_TYPE = "client_category"
+
 type WorkCategory = Database["public"]["Tables"]["work_categories"]["Row"]
 type ClientCategory = Database["public"]["Tables"]["client_categories"]["Insert"]
+
+type ClientCategoryWidgetProps = {
+    clientCategory: ClientCategory
+    i: number
+    clientCategoriesOpen: number[]
+    setClientCategoriesOpen: (clientCategoriesOpen: number[]) => void
+    clientCategoriesToDelete: number[]
+    setClientCategoriesToDelete: (clientCategoriesToDelete: number[]) => void
+    isEditing: boolean
+    setIsEditing: (isEditing: boolean) => void
+    clientCategoryEditState: ClientCategory[]
+    setClientCategoryEditState: (clientCategoryEditState: ClientCategory[]) => void
+    handleDeleteClientCategory: (clientCategory: { id?: number, name?: string }) => void
+}
+
+const ClientCategoryWidget = ({ clientCategory, i, clientCategoriesOpen, setClientCategoriesOpen, clientCategoriesToDelete, setClientCategoriesToDelete, isEditing, setIsEditing, clientCategoryEditState, setClientCategoryEditState, handleDeleteClientCategory }: ClientCategoryWidgetProps) => {
+
+    const isDeleted = clientCategory.id && clientCategoriesToDelete.includes(clientCategory.id)
+    const [collected, drag, dragPreview] = useDrag(() => ({
+        type: DND_ITEM_TYPE,
+        item: () => {
+            console.log("item")
+            return { clientCategory, i }
+        },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }))
+
+    return (
+        <div
+            key={i}
+            className={`border border-gray-300 rounded-md p-2 m-1 ${collected.isDragging ? "opacity-50" : ""}`}
+            // @ts-ignore
+            ref={dragPreview}
+        >
+            <div className="flex justify-between items-center">
+                <div className="flex gap-2 items-center">
+                    {(isEditing && !isDeleted) && (
+                        <div
+                            // @ts-ignore
+                            ref={drag}
+                        >
+                            <HiDotsVertical size={20} />
+                        </div>
+                    )}
+                    <div className="cursor-pointer flex items-center justify-center w-4 h-4">
+                        {clientCategoriesOpen.includes(i)
+                            ? <IoMdArrowDropdown
+                                size={16}
+                                onClick={() => setClientCategoriesOpen(clientCategoriesOpen.filter((id) => id !== i))}
+                            />
+                            : <IoMdArrowDropright
+                                size={16}
+                                onClick={() => setClientCategoriesOpen([...clientCategoriesOpen, i])}
+                            />}
+                    </div>
+
+                    <div className={
+                        isDeleted
+                            ? "p-1 w-full line-through text-gray-300"
+                            : isEditing ? "rounded-md border border-gray-300 p-1 w-full" : "p-1 w-full"}>
+                        <input
+                            type="text"
+                            className="w-full rounded-md bg-white"
+                            value={clientCategory.name || ""}
+                            disabled={!isEditing}
+                            onChange={(e) => {
+                                const newClientCategories = [...clientCategoryEditState]
+                                newClientCategories[i].name = e.target.value
+                                setClientCategoryEditState(newClientCategories)
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    {isDeleted
+                        ? <MdUndo
+                            size={20}
+                            onClick={() => {
+                                setClientCategoriesToDelete(clientCategoriesToDelete.filter((id) => id !== clientCategory.id))
+                            }}
+                        />
+                        : <MdDelete
+                            size={20}
+                            onClick={() => handleDeleteClientCategory({ id: clientCategory.id, name: clientCategory.name || undefined })}
+                        />}
+                </div>
+            </div>
+            {!isDeleted && clientCategoriesOpen.includes(i) && (
+                <div className="flex flex-col gap-2 text-sm m-2">
+                    <div className="w-full">
+                        <label className="text-sm font-bold">Link Text</label>
+                        <div className="w-full h-fit border border-gray-300 rounded-md">
+                            <input
+                                type="text"
+                                className="w-full p-2 rounded-md"
+                                value={clientCategory.link_text || ""}
+                                disabled={!isEditing}
+                                placeholder="Link Text"
+                                onChange={(e) => {
+                                    const newClientCategories = [...clientCategoryEditState]
+                                    newClientCategories[i].link_text = e.target.value
+                                    setClientCategoryEditState(newClientCategories)
+                                }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="w-full">
+                        <label className="text-sm font-bold">Link Description</label>
+                        <div className="w-full h-fit border border-gray-300 rounded-md">
+                            <AutoGrowTextarea
+                                className="w-full p-2 rounded-md"
+                                placeholder="Link Description"
+                                value={clientCategory.link_description || ""}
+                                disabled={!isEditing}
+                                onChange={(e) => {
+                                    const newClientCategories = [...clientCategoryEditState]
+                                    newClientCategories[i].link_description = e.target.value
+                                    setClientCategoryEditState(newClientCategories)
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    )
+}
+
+const DropTarget = () => {
+    const [collected, drop] = useDrop(() => ({
+        accept: DND_ITEM_TYPE,
+        collect: (monitor) => ({
+            isDragging: !!monitor.getItem(),
+            isOver: !!monitor.isOver()
+        })
+    }))
+
+    if (collected.isDragging) {
+        console.log("isDragging")
+    }
+
+    return (
+        <div
+            // @ts-ignore
+            ref={drop}
+            className={`${collected.isOver ? "bg-gray-200" : ""} ${collected.isDragging ? "h-8" : ""}`}
+        >
+            {collected.isDragging && "Drop Here"}
+        </div>
+    )
+}
 
 const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
     const client = createClient()
@@ -266,6 +426,20 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                 </div>
 
                 <div className="w-full">
+                    <label className="text-sm font-bold">Color</label>
+                    <div className="w-fit h-fit flex gap-2 items-center p-2 bg-white border border-gray-300 rounded-md">
+                        <input
+                            type="color"
+                            className="w-6 h-6 rounded-md"
+                            value={editState?.backsplash || "#ffffff"}
+                            disabled={!isEditing}
+                            onChange={(e) => setEditState(editState && { ...editState, backsplash: e.target.value })}
+                        />
+                        {editState?.backsplash}
+                    </div>
+                </div>
+
+                <div className="w-full">
                     <label className="text-sm font-bold">Tagline</label>
                     <div className="w-full h-fit border border-gray-300 rounded-md">
                         <input
@@ -292,6 +466,18 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
 
+                <div className="w-full">
+                    <label className="text-sm font-bold">Image</label>
+                    {!editState?.img && <div className="italic text-gray-500">No Image Selected</div>}
+                    <img src={editState?.img || ""} className="w-64 max-w-full h-auto" />
+                    {isEditing &&
+                        <ImgPicker
+                            img={editState?.img || ""}
+                            setImg={(img) => setEditState(editState && { ...editState, img: img })}
+                        />
+                    }
+                </div>
+
                 <div>
                     <label className="text-sm font-bold">Client Categories</label>
                     {isEditing && <div>
@@ -306,93 +492,25 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                     </div>}
                     <div>
                         {clientCategoryEditState?.map((clientCategory, i) => (
-                            <div key={i} className="border border-gray-300 rounded-md p-2 m-1">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex gap-2 items-center">
-                                        <div className="cursor-pointer flex items-center justify-center w-4 h-4">
-                                            {clientCategoriesOpen.includes(i)
-                                                ? <IoMdArrowDropdown
-                                                    size={16}
-                                                    onClick={() => setClientCategoriesOpen(clientCategoriesOpen.filter((id) => id !== i))}
-                                                />
-                                                : <IoMdArrowDropright
-                                                    size={16}
-                                                    onClick={() => setClientCategoriesOpen([...clientCategoriesOpen, i])}
-                                                />}
-                                        </div>
-
-                                        <div className={
-                                            (clientCategory.id && clientCategoriesToDelete.includes(clientCategory.id))
-                                                ? "p-1 w-full line-through text-gray-300"
-                                                : isEditing ? "rounded-md border border-gray-300 p-1 w-full" : "p-1 w-full"}>
-                                            <input
-                                                type="text"
-                                                className="w-full rounded-md bg-white"
-                                                value={clientCategory.name || ""}
-                                                disabled={!isEditing}
-                                                onChange={(e) => {
-                                                    const newClientCategories = [...clientCategoryEditState]
-                                                    newClientCategories[i].name = e.target.value
-                                                    setClientCategoryEditState(newClientCategories)
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        {(clientCategory.id && clientCategoriesToDelete.includes(clientCategory.id))
-                                            ? <MdUndo
-                                                size={20}
-                                                onClick={() => {
-                                                    setClientCategoriesToDelete(clientCategoriesToDelete.filter((id) => id !== clientCategory.id))
-                                                }}
-                                            />
-                                            : <MdDelete
-                                                size={20}
-                                                onClick={() => handleDeleteClientCategory({ id: clientCategory.id, name: clientCategory.name || undefined })}
-                                            />}
-                                    </div>
-                                </div>
-                                {!(clientCategory.id && clientCategoriesToDelete.includes(clientCategory.id)) && clientCategoriesOpen.includes(i) && (
-                                    <div className="flex flex-col gap-2 text-sm m-2">
-                                        <div className="w-full">
-                                            <label className="text-sm font-bold">Link Text</label>
-                                            <div className="w-full h-fit border border-gray-300 rounded-md">
-                                                <input
-                                                    type="text"
-                                                    className="w-full p-2 rounded-md"
-                                                    value={clientCategory.link_text || ""}
-                                                    disabled={!isEditing}
-                                                    placeholder="Link Text"
-                                                    onChange={(e) => {
-                                                        const newClientCategories = [...clientCategoryEditState]
-                                                        newClientCategories[i].link_text = e.target.value
-                                                        setClientCategoryEditState(newClientCategories)
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="w-full">
-                                            <label className="text-sm font-bold">Link Description</label>
-                                            <div className="w-full h-fit border border-gray-300 rounded-md">
-                                                <AutoGrowTextarea
-                                                    className="w-full p-2 rounded-md"
-                                                    placeholder="Link Description"
-                                                    value={clientCategory.link_description || ""}
-                                                    disabled={!isEditing}
-                                                    onChange={(e) => {
-                                                        const newClientCategories = [...clientCategoryEditState]
-                                                        newClientCategories[i].link_description = e.target.value
-                                                        setClientCategoryEditState(newClientCategories)
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                            <>
+                                <DropTarget key={"drop-" + i} />
+                                <ClientCategoryWidget
+                                    key={"client-" + i}
+                                    clientCategory={clientCategory}
+                                    i={i}
+                                    clientCategoriesOpen={clientCategoriesOpen}
+                                    setClientCategoriesOpen={setClientCategoriesOpen}
+                                    clientCategoriesToDelete={clientCategoriesToDelete}
+                                    setClientCategoriesToDelete={setClientCategoriesToDelete}
+                                    isEditing={isEditing}
+                                    setIsEditing={setIsEditing}
+                                    clientCategoryEditState={clientCategoryEditState}
+                                    setClientCategoryEditState={setClientCategoryEditState}
+                                    handleDeleteClientCategory={handleDeleteClientCategory}
+                                />
+                            </>
                         ))}
+                        <DropTarget />
                     </div>
                 </div>
             </div>

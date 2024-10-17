@@ -11,27 +11,42 @@ export type Database = {
     Tables: {
       client_categories: {
         Row: {
+          backsplash: string
+          blurb: string | null
+          capabilities: string | null
           id: number
           link_description: string | null
           link_text: string | null
           name: string | null
           order: number | null
+          slug: string | null
+          tagline: string | null
           work_category_id: number | null
         }
         Insert: {
+          backsplash?: string
+          blurb?: string | null
+          capabilities?: string | null
           id?: number
           link_description?: string | null
           link_text?: string | null
           name?: string | null
           order?: number | null
+          slug?: string | null
+          tagline?: string | null
           work_category_id?: number | null
         }
         Update: {
+          backsplash?: string
+          blurb?: string | null
+          capabilities?: string | null
           id?: number
           link_description?: string | null
           link_text?: string | null
           name?: string | null
           order?: number | null
+          slug?: string | null
+          tagline?: string | null
           work_category_id?: number | null
         }
         Relationships: [
@@ -189,22 +204,28 @@ export type Database = {
       }
       work_categories: {
         Row: {
+          backsplash: string
           description: string | null
           id: number
+          img: string | null
           name: string | null
           slug: string
           tagline: string | null
         }
         Insert: {
+          backsplash?: string
           description?: string | null
           id?: number
+          img?: string | null
           name?: string | null
           slug: string
           tagline?: string | null
         }
         Update: {
+          backsplash?: string
           description?: string | null
           id?: number
+          img?: string | null
           name?: string | null
           slug?: string
           tagline?: string | null
@@ -307,4 +328,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

@@ -2,25 +2,14 @@ import AccountWidget from "@/components/AccountWidget"
 import LoginWidget from "@/components/LoginWidget"
 import { createClient } from "@/supabase/server"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
     const client = createClient()
     const { data: { user } } = await client.auth.getUser()
     if (!user) {
-        return (
-            <div className="w-full h-full min-h-screen flex flex-col items-center justify-center bg-white">
-                <div>
-                    Authorized user access only
-                </div>
-                <div className="flex gap-2">
-                    Click here to login:
-                    <div className="ml-2 w-fit bg-black h-fit">
-                        <LoginWidget />
-                    </div>
-                </div>
-            </div>
-        )
+        return redirect("/login")
     }
     return (
         <div className="w-full h-full min-h-screen bg-white">

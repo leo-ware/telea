@@ -13,17 +13,17 @@ const highlightedClients = [
     {
         src: tef.src,
         tagLine: "Built and Managed Organization and Media Production",
-        href: "/clients/families-individuals-and-foundations#tef"
+        href: "/clients/families-individuals-and-foundations#54f1b555-1388-40c6-8659-77980e78058a"
     },
     {
         src: doe.src,
         tagLine: "Organizational Development, Fundraising and Campaign Management",
-        href: "/clients/families-individuals-and-foundations#dfe",
+        href: "/clients/families-individuals-and-foundations#71669827-451d-4bab-b06a-7377515c3550",
     },
     {
         src: fds.src,
         tagLine: "Organizational Strategy, Fund Development and Visibility Enhancement",
-        href: "/clients/non-profits#fds"
+        href: "/clients/non-profits#7dbee397-6494-4bd9-9524-c296c9159aa1"
     }
 ]
 
@@ -109,13 +109,15 @@ export default function Home() {
                 </div> */}
             </div>
 
-            <div className="text-[40px] p-10 md:px-20 border-t-4 border-blue-green">
+            <img src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/grip-tape.png" className="w-full h-auto" />
+
+            <div className="text-[40px] p-10 md:px-20 font-bold">
                 Client Highlights
             </div>
 
             <div className="flex md:flex-row flex-col">
                 {highlightedClients.map(({ src, tagLine, href }) => (
-                    <div className="flex flex-col justify-between md:w-1/3 text-3xl p-10 md:px-20 border-y-4 border-l-4 border-r-0 border-blue-green">
+                    <div className="flex flex-col justify-between md:w-1/3 text-3xl p-10 md:px-20">
                         <div className="flex items-center w-full h-28">
                             <img className="w-full object-fit" src={src} />
                         </div>

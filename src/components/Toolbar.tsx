@@ -5,22 +5,53 @@ import { useEffect, useState } from "react"
 import { FaYoutube } from "react-icons/fa"
 import { FaInstagram, FaLinkedin } from "react-icons/fa6"
 import { GoSun } from "react-icons/go"
-import { IoIosSend, IoMdArrowDropdown, IoMdArrowDropright, IoMdClose } from "react-icons/io"
-import { IoSend } from "react-icons/io5"
+import { IoMdArrowDropdown, IoMdArrowDropright, IoMdClose } from "react-icons/io"
 import { LuSendHorizonal } from "react-icons/lu"
-import { MdAccountCircle } from "react-icons/md"
 import LoginWidget from "./LoginWidget"
+import { createClient } from "@/supabase/client"
+import { Database } from "@/supabase/types"
+import { MdLogin } from "react-icons/md"
+
+type WorkCategory = Database["public"]["Tables"]["work_categories"]["Row"]
+type ClientCategory = Database["public"]["Tables"]["client_categories"]["Row"]
 
 const Toolbar = () => {
+    const client = createClient()
+
     const [open, setOpen] = useState(false)
     const [over, setOver] = useState(false)
-    const [consultingOpen, setConsultingOpen] = useState(false)
-    const [advisingOpen, setAdvisingOpen] = useState(false)
+
+    const [workCategories, setWorkCategories] = useState<WorkCategory[]>([])
+    const [clientCategories, setClientCategories] = useState<ClientCategory[]>([])
+    const [categoriesOpen, setCategoriesOpen] = useState<number[]>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const [
+                { data: workCategories, error: workCategoriesError },
+                { data: clientCategories, error: clientCategoriesError }
+            ] = await Promise.all([
+                client.from("work_categories").select("*"),
+                client.from("client_categories").select("*")
+            ])
+
+            if (workCategoriesError || !workCategories) {
+                console.log(workCategoriesError)
+            }
+
+            if (clientCategoriesError || !clientCategories) {
+                console.log(clientCategoriesError)
+            }
+
+            setWorkCategories(workCategories || [])
+            setClientCategories(clientCategories || [])
+        }
+        fetchData()
+    }, [])
 
     useEffect(() => {
         if (!open) {
-            setAdvisingOpen(false)
-            setConsultingOpen(false)
+            setCategoriesOpen([])
             setOver(false)
         }
     }, [open])
@@ -72,49 +103,41 @@ const Toolbar = () => {
                                     </Link>
                                 </div>
 
-                                <div className={"my-2 text-2xl ml-[-8px]"}>
-                                    <div className="flex items-center">
-                                        <div onClick={() => setConsultingOpen(!consultingOpen)}>
-                                            {consultingOpen
-                                                ? <IoMdArrowDropdown />
-                                                : <IoMdArrowDropright />}
-                                        </div>
-                                        <Link href={"/clients/impact-consulting"} onClick={() => setOpen(false)}>
-                                            Impact Consulting
-                                        </Link>
-                                    </div>
-                                    {consultingOpen &&
-                                        <div className="pl-8 flex flex-col">
-                                            <Link className="w-fit" href={"/clients/non-profits"} onClick={() => setOpen(false)}>
-                                                Non Profits
-                                            </Link>
-                                            <Link className="w-fit" href={"/clients/social-enterprises"} onClick={() => setOpen(false)}>
-                                                Social Enterprises
-                                            </Link>
-                                            <Link className="w-fit" href={"/clients/media-ventures"} onClick={() => setOpen(false)}>
-                                                Media Ventures
-                                            </Link>
-                                        </div>}
-                                </div>
+                                {workCategories.map((category) => {
+                                    const myClientCategories = clientCategories.filter((clientCategory) => clientCategory.work_category_id === category.id)
+                                    const open = categoriesOpen.includes(category.id)
 
-                                <div className={"my-2 text-2xl ml-[-8px]"}>
-                                    <div className="flex items-center">
-                                        <div onClick={() => setAdvisingOpen(!advisingOpen)}>
-                                            {advisingOpen
-                                                ? <IoMdArrowDropdown />
-                                                : <IoMdArrowDropright />}
+                                    const toggleOpen = () => {
+                                        if (open) {
+                                            setCategoriesOpen(categoriesOpen.filter((id) => id !== category.id))
+                                        } else {
+                                            setCategoriesOpen([...categoriesOpen, category.id])
+                                        }
+                                    }
+
+                                    return (
+                                        <div className={"my-2 text-2xl ml-[-8px]"}>
+                                            <div className="flex items-center">
+                                                <div onClick={toggleOpen}>
+                                                    {open
+                                                        ? <IoMdArrowDropdown />
+                                                        : <IoMdArrowDropright />}
+                                                </div>
+                                                <Link href={`/work/${category.slug}`} onClick={() => setOpen(false)}>
+                                                    {category.name}
+                                                </Link>
+                                            </div>
+                                            {open &&
+                                                <div className="pl-8 flex flex-col">
+                                                    {myClientCategories.map((clientCategory) => (
+                                                        <Link className="w-fit" href={`/clients/${clientCategory.slug}`} onClick={() => setOpen(false)}>
+                                                            {clientCategory.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>}
                                         </div>
-                                        <Link href={"/clients/philanthropic-advising"} onClick={() => setOpen(false)}>
-                                            Philanthropic Advising
-                                        </Link>
-                                    </div>
-                                    {advisingOpen &&
-                                        <div className="pl-8 flex flex-col">
-                                            <Link className="w-fit" href={"/clients/families-individuals-and-foundations"} onClick={() => setOpen(false)}>
-                                                Families, Individuals and Foundations
-                                            </Link>
-                                        </div>}
-                                </div>
+                                    )
+                                })}
 
                                 <div
                                     className={"my-2 text-2xl "}
@@ -176,8 +199,10 @@ const Toolbar = () => {
 
 
                         </div>
-
-                        <LoginWidget />
+                        
+                        <Link href="/login">
+                            <MdLogin size={24} color="white" />
+                        </Link>
                     </div>
                 </div>
             }

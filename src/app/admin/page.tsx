@@ -17,6 +17,12 @@ const AdminHome = () => {
                 <Link href="/admin/work_categories">
                     Work Categories
                 </Link>
+                <Link href="/admin/client_categories">
+                    Client Categories
+                </Link>
+                <Link href="/admin/clients">
+                    Clients
+                </Link>
             </div>
         </div>
     )
