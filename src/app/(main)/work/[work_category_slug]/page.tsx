@@ -26,7 +26,7 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
     }
 
     return (
-        <div className="">
+        <div className="w-full">
             <div className="w-full flex flex-col items-center px-10 py-10" style={{ backgroundColor: workCategory.backsplash }}>
                 <div className={" font-bold text-[80px]"}>{workCategory.name}</div>
 
@@ -43,11 +43,11 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
                 </p>
             </div>
 
-            <div className="relative flex flex-col gap-12 grid grid-cols-12 py-20 leading-tight px-20 text-[24px]">
+            <div className="relative flex flex-col gap-12 lg:grid lg:grid-cols-12 py-20 leading-tight px-4 md:px-20 text-[24px]">
                 {clientCategories?.map((clientCategory) => (
                     <>
-                        <div className=" col-span-2 col-start-3 font-bold">{clientCategory.name}</div>
-                        <div className="font-thin col-span-6 col-start-5">
+                        <div className="col-span-2 col-start-3 font-bold">{clientCategory.name}</div>
+                        <div className="font-thin col-span-12 col-start-5">
                             <div>
                                 {clientCategory.link_description}
                             </div>

@@ -18,7 +18,7 @@ const About = () => {
                 <img className="w-full" src={"/img/happy_people.jpeg"} />
             </div>
 
-            <div className="relative flex flex-col gap-12 md:grid md:grid-cols-14 py-20 leading-tight px-8 md:px-20 text-[24px]">
+            <div className="relative flex flex-col gap-8 md:gap-12 md:grid md:grid-cols-14 py-20 leading-tight px-8 md:px-20 text-[24px]">
 
                 <>
                     <div className="text-[26px] col-span-4 col-start-1 md:pb-10 ">

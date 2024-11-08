@@ -52,9 +52,11 @@ const Page = ({ params }: { params: { id: string } }) => {
         const saveData = async (state: Client) => {
             setSaving(true)
 
+            const upsertState = {...state, category: state.category || null}
+
             const { data, error } = await client
                 .from("clients")
-                .upsert(state, { onConflict: "id", ignoreDuplicates: false })
+                .upsert(upsertState, { onConflict: "id", ignoreDuplicates: false })
                 .select("*")
                 .single()
 
@@ -64,7 +66,8 @@ const Page = ({ params }: { params: { id: string } }) => {
                 if (error.code == "PGRST116") {
                     setErrorState("This client does not exist")
                 } else {
-                    setErrorState(error.message)
+                    console.log(error)
+                    setErrorState("Error saving client, retry or check console for more details")
                     setIsEditing(true)
                 }
                 return
@@ -124,14 +127,16 @@ const Page = ({ params }: { params: { id: string } }) => {
         <div>
             <div>
                 <div className="text-2xl font-bold">Edit Client</div>
-                <Link className="text-blue-500 underline" href="/admin/clients" prefetch={false}>Back to clients</Link>
-            </div>
-            {errorState && (
-                <div>
-                    <div className="text-red-500">{errorState}</div>
-                    <Link className="text-blue-500 underline" href="/admin/client_categories">Back to client categories</Link>
+                <div className="flex gap-2 flex-col">
+                    <Link className="text-blue-500 underline" href="/admin/clients" prefetch={false}>Back to clients</Link>
+                    {myClientCategory &&
+                        <Link target="_blank" className="text-blue-500 underline" href={`/clients/${myClientCategory?.slug}#${clientData?.id}`} prefetch={false}>
+                            View on main site
+                        </Link>}
                 </div>
-            )}
+                
+            </div>
+
             {editState && <div>
                 <div className="my-6 flex flex-col gap-4 w-full md:w-1/2">
                     <div className="w-full">
@@ -174,14 +179,17 @@ const Page = ({ params }: { params: { id: string } }) => {
                     </div>
                     <div className="w-full">
                         <label className="text-sm font-bold">Category</label>
+                        <div className="text-xs text-gray-500">Select "No Category" to prevent this client from being displayed on the main website.</div>
                         <div className="w-full h-fit border border-gray-300 rounded-md">
                             <select
                                 disabled={!isEditing}
                                 className="p-2 w-full"
                                 onChange={e => setEditState(es => (es && { ...es, category: parseInt(e.target.value) }))}>
-                                <option key={myClientCategory?.id} value={myClientCategory?.id}>
-                                    {myClientCategory?.name}
-                                </option>
+                                {myClientCategory &&
+                                    <option key={myClientCategory?.id} value={myClientCategory?.id}>
+                                        {myClientCategory?.name}
+                                    </option>}
+                                <option value={""}>-- No Category --</option>
                                 {otherClientCategories.map(category => (
                                     <>
                                         {(category.id != clientData?.category) && (
@@ -211,6 +219,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                     {saving && <div className="w-4 h-4"><Spinner /></div>}
                     {saveSuccess && <div className="text-green-500">Saved</div>}
                 </div>
+
+                {errorState && (
+                    <div>
+                        <div className="text-red-500">{errorState}</div>
+                        <Link className="text-blue-500 underline" href="/admin/client_categories">Back to client categories</Link>
+                    </div>
+                )}
 
                 <div className="flex gap-4">
                     {isEditing

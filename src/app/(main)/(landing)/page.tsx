@@ -111,14 +111,14 @@ export default function Home() {
 
             <img src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/grip-tape.png" className="w-full h-auto" />
 
-            <div className="text-[40px] p-10 md:px-20 font-bold">
+            <div className="text-[40px] py-4 md:py-10 px-10 md:px-20 font-bold">
                 Client Highlights
             </div>
 
             <div className="flex md:flex-row flex-col">
                 {highlightedClients.map(({ src, tagLine, href }) => (
                     <div className="flex flex-col justify-between md:w-1/3 text-3xl p-10 md:px-20">
-                        <div className="flex items-center w-full h-28">
+                        <div className="flex items-center w-full max-w-[350px] min-w-[200px] h-auto">
                             <img className="w-full object-fit" src={src} />
                         </div>
                         <div className="my-8">{tagLine}</div>

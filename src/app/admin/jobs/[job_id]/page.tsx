@@ -190,6 +190,9 @@ const Job = ({ params }: { params: { job_id: string } }) => {
 
                 <div className="flex flex-col gap-1">
                     <label htmlFor="application_link">Application Link</label>
+                    <div className="text-sm text-gray-500">
+                        This should point to a Google Form or similar for Telea jobs.
+                    </div>
                     <input
                         disabled={!editMode}
                         className="border border-gray-300 p-2 rounded-md"

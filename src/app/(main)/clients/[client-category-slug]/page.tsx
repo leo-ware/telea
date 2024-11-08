@@ -52,11 +52,11 @@ const Page = async ({ params }: { params: { "client-category-slug": string } }) 
             {clients?.map(client => (
                 <>
                     {client.img && <RollingImage imageSrc={client.img} desiredHeight={500} />}
-                    <div id={client.id} className="flex text-[30px] p-10 md:px-40 border-black">
-                        <div id="tef" className="w-1/3 font-bold">
+                    <div id={client.id} className="flex flex-col lg:flex-row text-[30px] p-10 md:px-40 border-black">
+                        <div id="tef" className="lg:w-1/3 font-bold mb-4 lg:mb-0">
                             <div>{client.name}</div>
                         </div>
-                        <div className="w-2/3">
+                        <div className="lg:w-2/3">
                             <div className="mb-4">
                                 {client.project_name}
                             </div>

@@ -22,7 +22,7 @@ const People = async () => {
             </div>
 
             <div className="flex flex-col items-center">
-                <div className="p-6 md:w-1/2">
+                <div className="p-6 md:w-[80%] lg:w-1/2">
                     {data.map((person) => (
                         <div className="flex flex-col md:flex-row my-6 gap-6 justify-between items-start">
                             <div className="w-fit pt-2 shrink-0">

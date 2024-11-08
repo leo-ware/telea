@@ -11,8 +11,19 @@ const Events = async () => {
     }
     return (
         <div>
-            <div className="text-2xl font-bold mb-8">Events</div>
-            <Link href={`/events`} className="text-blue-500 hover:underline">View Events on Main Site</Link>
+            <div className="text-2xl font-bold mb-4">Events</div>
+            <Link href={`/events`} className="text-blue-500 hover:underline my-2">View Events on Main Site</Link>
+            <div className="my-4">
+                This is where you can manage the events board.
+                Both future and past events can be modified here.
+                On each event's page, you will find a toggle that determines whether it is shown on the main site.
+                This defaults to false for new events, so make sure you turn it on when you create a new event.
+
+                <br/><br/>
+
+                If you just added an event, and it hasn't shown up yet. Try reloading this page.
+            </div>
+            
 
             <form>
                 <table className="table-auto w-full md:w-1/2 border-collapse">

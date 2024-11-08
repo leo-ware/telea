@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/react"
 
 import "./globals.css"
 
@@ -16,7 +17,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={alegraya.className + " h-full w-full bg-black"}>
+            <Analytics />
+            <body className={alegraya.className + " h-screen w-screen "}>
                 <Providers>
                     {children}
                 </Providers>

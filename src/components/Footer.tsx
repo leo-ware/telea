@@ -41,7 +41,7 @@ const Footer = async () => {
     }
 
     return (
-        <div className="w-full h-fit p-10 md:px-44 flex gap-4 md:gap-0 flex-col md:flex-row justify-between bg-black text-white">
+        <div className="w-full h-fit p-10 md:px-44 flex gap-4 md:gap-0 flex-col lg:flex-row justify-between bg-black text-white">
             <div className="md:ml-10 w-7/12 h-fit flex flex-col md:flex-row gap-1 md:gap-8">
                 {(workCategories || []).map((workCategory) => {
                     const myClients = clientCategories?.filter((clientCategory) => clientCategory.work_category_id === workCategory.id)
