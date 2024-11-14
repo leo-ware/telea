@@ -31,7 +31,7 @@ const Toolbar = () => {
                 { data: workCategories, error: workCategoriesError },
                 { data: clientCategories, error: clientCategoriesError }
             ] = await Promise.all([
-                client.from("work_categories").select("*"),
+                client.from("work_categories").select("*").order("order"),
                 client.from("client_categories").select("*")
             ])
 

@@ -62,7 +62,7 @@ const Careers = async () => {
                     {!partnerJobs.length && <div className="text-md text-gray-500">No jobs are currently listed.</div>}
                 </div>
                 <div className="py-20">
-                    <Link href="/create-job-post">
+                    <Link href="/create-job-post" target="_blank">
                         <div className="text-2xl font-bold">Hiring?</div>
                         <div className="my-4">We host open positions from a variety of organizations with aligned missions.</div>
                         <div className="py-2 px-3 border border-black rounded-3xl w-fit">Post a Job</div>

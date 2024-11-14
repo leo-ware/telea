@@ -1,9 +1,8 @@
 import ReactMarkdown from "react-markdown"
 
-
 const Markdown = ({ content }: { content: string }) => {
     return (
-        <div className="prose">
+        <div className="prose prose-p:mb-0">
             <ReactMarkdown>
                 {content}
             </ReactMarkdown>

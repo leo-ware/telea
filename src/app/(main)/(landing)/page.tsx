@@ -44,8 +44,7 @@ export default function Home() {
 
             <div className={" text-[40px] p-10 md:px-40 bg-[#219ebc] text-white"}>
                 <p className="mb-8 md:mb-4">
-                    Accelerating impact for leaders championing social
-                    justice, women, Africa, and nature.
+                    Accelerating impact for leaders championing women, nature, social justice and Africa.
                 </p>
                 <p>
                     Telea Insights empowers leaders with strategy,
@@ -64,24 +63,24 @@ export default function Home() {
 
             <div className="flex md:flex-row flex-col">
                 <div className="md:w-1/2 text-[40px] p-10 md:px-20">
-                    <p className="mb-4 ">
-                        We consult for <Link className="underline" href="/clients/non-profits">nonprofits</Link>,{" "}
-                        <Link className="underline" href="/clients/social-enterprises">social enterprises</Link> & {" "}
-                        <Link className="underline" href="/clients/media-ventures">media ventures</Link>.
+                    <p className="mb-4">
+                        We advise <Link className="" href="/clients/families-individuals-and-foundations">families, individuals & foundations</Link>.
                     </p>
-
-                    <Link href="/clients/impact-consulting" className="mt-8 flex items-center">
-                        <div className="text-2xl md:mr-2 underline">Read about our impact consulting work</div>
+                    <Link href="/work/philanthropic-advising" className="mt-8 flex items-center">
+                        <div className="text-2xl mr-2 underline">Read about our philanthropic advising work</div>
                         <FaArrowRight size={24} />
                     </Link>
                 </div>
 
                 <div className="md:w-1/2 text-[40px] p-10 md:px-20">
-                    <p className="mb-4">
-                        We advise <Link className="underline" href="/clients/families-individuals-and-foundations">families, individuals & foundations</Link>.
+                    <p className="mb-4 ">
+                        We consult for <Link className="" href="/clients/non-profits">nonprofits</Link>,{" "}
+                        <Link className="" href="/clients/social-enterprises">social enterprises</Link> & {" "}
+                        <Link className="" href="/clients/media-ventures">media ventures</Link>.
                     </p>
-                    <Link href="/clients/philanthropic-advising" className="mt-8 flex items-center">
-                        <div className="text-2xl mr-2 underline">Read about our philanthropic advising work</div>
+
+                    <Link href="/work/impact-consulting" className="mt-8 flex items-center">
+                        <div className="text-2xl md:mr-2 underline">Read about our impact consulting work</div>
                         <FaArrowRight size={24} />
                     </Link>
                 </div>
@@ -92,24 +91,25 @@ export default function Home() {
             </div>
 
             <div className="text-[40px] p-10 md:px-40">
-                <p className="mb-8 md:mb-4">
+                <div className="mb-8 md:mb-4">
                     <div className="mb-8">Since 2015, we have</div>
                     <div className="flex justify-center">
                         <div className="w-full" data-aos="fade-left">
-                            Worked with <NumberGoUp target={25} duration={1000}/> clients<br />
-                            Worked in <NumberGoUp target={40} duration={1500} /> different countries<br />
-                            Helped raise <NumberGoUp target={15} duration={500} />+ million dollars<br />
-                            Reached <NumberGoUp target={400000} duration={3000}/> people
+                            Worked with <NumberGoUp target={15} duration={1000} /> clients<br />
+                            Worked in <NumberGoUp target={50} duration={1500} />+ countries<br />
+                            Helped raise and deploy <NumberGoUp target={15} duration={500} />+ million dollars<br />
                         </div>
                     </div>
-                </p>
-                {/* <div className="mt-8 flex items-center">
-                    <Link href={"/projects"} className="text-2xl mr-2 underline">Read more about our work</Link>
-                    <FaArrowRight size={24} />
-                </div> */}
+                </div>
+                <div className="mt-10">
+                    Telea Insights has partnered with organizations
+                    worldwide to transform resources into
+                    meaningful change, advancing equity, resilience, and
+                    sustainability for social and environmental progress.
+                </div>
             </div>
 
-            <img src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/grip-tape.png" className="w-full h-auto" />
+            <img src="/img/Copia de FDS.jpg" className="w-full h-auto" />
 
             <div className="text-[40px] py-4 md:py-10 px-10 md:px-20 font-bold">
                 Client Highlights

@@ -1,48 +1,64 @@
-import AutoGrowTextArea from "@/components/AutoGrowTextArea"
-import Block from "@/components/Block"
-import TitleBar from "@/components/TitleBar"
-import Link from "next/link"
+"use client"
 
+import AutoGrowTextArea from "@/components/AutoGrowTextArea"
+import { useState } from "react"
 
 const Contact = () => {
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [purpose, setPurpose] = useState("")
+    const [message, setMessage] = useState("")
+
+
+    const inputClass = "p-2 w-1/2 border border-gray-300 rounded-sm"
+
     return (
         <div>
-            <div className="w-full flex flex-col items-center bg-lapis-lazuli text-white py-10">
-                <div className="text-[80px]">Contact Us</div>
-
-                {/* <div className={" text-[30px] font-[100] pt-12 pb-8 w-7/12 text-center leading-tight"}>
-                    Explore jobs at Telea and our parters.
-                </div> */}
+            <div className="w-full flex flex-col items-center bg-sky-800 text-white py-10">
+                <div className="text-[50px] md:text-[80px]">Contact Us</div>
             </div>
-            <Block className="flex flex-col items-center">
-                <form className="lg:w-1/2 gap-2">
-                    <label className="my-2">
-                        <div>Name</div>
-                        <input required type="text" className="border border-black px-2 py-1 " />
-                    </label>
+            <div className="flex flex-col items-center">
+                <div className="lg:w-1/2 gap-4 py-8 flex flex-col items-start">
+                    <input
+                        required
+                        placeholder="Name"
+                        type="text"
+                        className={inputClass}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <input
+                        required
+                        placeholder="Email"
+                        type="email"
+                        className={inputClass}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <select
+                        required
+                        className={inputClass}
+                        value={purpose}
+                        onChange={(e) => setPurpose(e.target.value)}
+                    >
+                        <option>Hire Telea’s Services</option>
+                        <option>Collaborate with Telea</option>
+                        <option>Speaking opportunities</option>
+                        <option>Refer a client</option>
+                        <option>Request Press Kit</option>
+                        <option>Other</option>
+                    </select>
 
-                    <label className="my-2">
-                        <div>Email</div>
-                        <input required type="email" className="border border-black px-2 py-1 " />
-                    </label>
+                    <AutoGrowTextArea
+                        required
+                        placeholder="Message"
+                        className={inputClass}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
 
-                    <label className="my-2">
-                        <div>Purpose</div>
-                        <select required className="w-fit border border-black px-2 py-1">
-                            <option>Hire Telea’s Services</option>
-                            <option>Collaborate with Telea</option>
-                            <option>Speaking opportunities</option>
-                            <option>Refer a client</option>
-                            <option>Request Press Kit</option>
-                            <option>Other</option>
-                        </select>
-                    </label>
-                    
-
-                    <AutoGrowTextArea required placeholder="Message" className="w-full h-fit border border-black px-2 py-1 my-4" />
-
-                    <button className="w-fit border border-black px-2 py-1">Submit</button>
-                </form>
+                    <button className="w-fit border border-black rounded-sm p-2">Submit</button>
+                </div>
 
                 <p className="my-4">
                     For general and media inquiries, contact us at
@@ -51,7 +67,7 @@ const Contact = () => {
                     </span>
                 </p>
 
-            </Block>
+            </div>
         </div>
     )
 }
