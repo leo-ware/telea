@@ -65,6 +65,7 @@ export type Database = {
           id: string
           img: string | null
           name: string
+          order: number | null
           project_description: string | null
           project_name: string | null
         }
@@ -73,6 +74,7 @@ export type Database = {
           id?: string
           img?: string | null
           name: string
+          order?: number | null
           project_description?: string | null
           project_name?: string | null
         }
@@ -81,6 +83,7 @@ export type Database = {
           id?: string
           img?: string | null
           name?: string
+          order?: number | null
           project_description?: string | null
           project_name?: string | null
         }
@@ -175,6 +178,35 @@ export type Database = {
         }
         Relationships: []
       }
+      featured_clients: {
+        Row: {
+          client_id: string
+          description: string | null
+          img: string | null
+          order: number | null
+        }
+        Insert: {
+          client_id: string
+          description?: string | null
+          img?: string | null
+          order?: number | null
+        }
+        Update: {
+          client_id?: string
+          description?: string | null
+          img?: string | null
+          order?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "featured_clients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       jobs: {
         Row: {
           application: string | null
@@ -250,6 +282,8 @@ export type Database = {
           description: string | null
           id: number
           img: string | null
+          landing_page_description: string | null
+          landing_page_link_text: string | null
           name: string | null
           order: number | null
           slug: string
@@ -260,6 +294,8 @@ export type Database = {
           description?: string | null
           id?: number
           img?: string | null
+          landing_page_description?: string | null
+          landing_page_link_text?: string | null
           name?: string | null
           order?: number | null
           slug: string
@@ -270,6 +306,8 @@ export type Database = {
           description?: string | null
           id?: number
           img?: string | null
+          landing_page_description?: string | null
+          landing_page_link_text?: string | null
           name?: string | null
           order?: number | null
           slug?: string

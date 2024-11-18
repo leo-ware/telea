@@ -33,6 +33,7 @@ const Events = async () => {
                             <th className="text-left p-2">Title</th>
                             <th className="text-left p-2">Date</th>
                             <th className="text-left p-2">Location</th>
+                            <th className="text-left p-2">Publicly Visible</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +51,7 @@ const Events = async () => {
                                 </td>
                                 <td className="p-2">{event.date}</td>
                                 <td className="p-2">{event.location}</td>
+                                <td className="p-2">{event.show ? "Yes" : "No"}</td>
                             </tr>
                         ))}
                         <tr>

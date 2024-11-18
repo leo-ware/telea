@@ -106,7 +106,9 @@ const Toolbar = () => {
                                 </div>
 
                                 {workCategories.map((category) => {
-                                    const myClientCategories = clientCategories.filter((clientCategory) => clientCategory.work_category_id === category.id)
+                                    const myClientCategories = clientCategories
+                                        .filter((clientCategory) => clientCategory.work_category_id === category.id)
+                                        .toSorted((a, b) => (a.order || 0) - (b.order || 0))
                                     const open = categoriesOpen.includes(category.id)
 
                                     const toggleOpen = () => {

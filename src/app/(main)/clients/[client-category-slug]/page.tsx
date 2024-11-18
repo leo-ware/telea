@@ -21,6 +21,7 @@ const Page = async ({ params }: { params: { "client-category-slug": string } }) 
         .from("clients")
         .select("*")
         .eq("category", clientCategory.id)
+        .order("order", { ascending: true })
 
     if (clientsError || !clients) {
         console.log(clientsError)

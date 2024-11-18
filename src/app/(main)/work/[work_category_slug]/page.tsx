@@ -52,7 +52,7 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
             </div>
 
             <div className="relative flex flex-col gap-8 md:gap-12 lg:grid lg:grid-cols-12 pb-6 md:py-20 leading-tight px-4 md:px-20 text-[24px]">
-                {clientCategories?.map((clientCategory) => (
+                {clientCategories?.toSorted((a, b) => (a.order || 0) - (b.order || 0)).map((clientCategory) => (
                     <>
                         <div className="col-span-2 col-start-3 font-bold">{clientCategory.name}</div>
                         <div className="font-thin col-span-12 col-start-5 mb-8">

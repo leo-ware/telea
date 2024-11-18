@@ -49,7 +49,7 @@ const ClientCategoryWidget = ({ clientCategory, i, clientCategoriesOpen, setClie
     return (
         <div
             key={i}
-            className={`border border-gray-300 rounded-md p-2 m-1 ${collected.isDragging ? "opacity-50" : ""}`}
+            className={`p-2 m-1 grow ${collected.isDragging ? "opacity-50" : ""}`}
             // @ts-ignore
             ref={dragPreview}
         >
@@ -362,6 +362,26 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
         setClientCategoryEditState(clientCategories)
     }
 
+    const reorderClients = (oldOrder: number, newOrder: number) => {
+        const newClientCategories = [...(clientCategoryEditState || []).map(each => ({ ...each }))]
+        newClientCategories.forEach((clientCategory) => {
+            if (clientCategory.order === oldOrder) {
+                clientCategory.order = newOrder
+            } else {
+                if (clientCategory.order && clientCategory.order > oldOrder) {
+                    clientCategory.order -= 1
+                    console.log("decrementing", clientCategory.name, clientCategory.order)
+                }
+                
+                if (clientCategory.order && clientCategory.order >= newOrder) {
+                    clientCategory.order += 1
+                    console.log("incrementing", clientCategory.name, clientCategory.order)
+                }
+            }
+        })
+        setClientCategoryEditState(newClientCategories)
+    }
+
     useEffect(() => {
         if (editState && editState.name) {
             setEditState({ ...editState, slug: editState.name.trim().toLowerCase().replace(/ /g, "-") })
@@ -386,7 +406,7 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             </a>
 
             <a
-                href={`/clients2/${workCategory?.slug}`}
+                href={`/work/${workCategory?.slug}`}
                 className="ml-2 text-blue-500 underline my-4"
                 target="_blank"
             >
@@ -478,6 +498,35 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                     }
                 </div>
 
+                <div className="w-full">
+                    <label className="text-sm font-bold">Landing Page Description</label>
+                    <div className="text-xs text-gray-500">There is a widget on the landing page that displays this description</div>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <AutoGrowTextarea
+                            className="w-full p-2 rounded-md"
+                            placeholder="Landing Page Description"
+                            value={editState?.landing_page_description || ""}
+                            disabled={!isEditing}
+                            onChange={(e) => setEditState(editState && { ...editState, landing_page_description: e.target.value })}
+                        />
+                    </div>
+                </div>
+
+                <div className="w-full">
+                    <label className="text-sm font-bold">Landing Page Link Text</label>
+                    <div className="text-xs text-gray-500">The link from the widget on the landing page will display this text</div>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <input
+                            type="text"
+                            className="w-full p-2 rounded-md"
+                            placeholder="Landing Page Link Text"
+                            value={editState?.landing_page_link_text || ""}
+                            disabled={!isEditing}
+                            onChange={(e) => setEditState(editState && { ...editState, landing_page_link_text: e.target.value })}
+                        />
+                    </div>
+                </div>
+
                 <div>
                     <label className="text-sm font-bold">Client Categories</label>
                     {isEditing && <div>
@@ -491,9 +540,18 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                         </div>
                     </div>}
                     <div>
-                        {clientCategoryEditState?.map((clientCategory, i) => (
-                            <>
-                                <DropTarget key={"drop-" + i} />
+                        {clientCategoryEditState?.toSorted((a, b) => (a.order || 0) - (b.order || 0)).map((clientCategory, i) => (
+                            <div className="flex gap-2 items-start w-full">
+                                <select
+                                    className="w-8 mt-4"
+                                    disabled={!isEditing}
+                                    value={clientCategory.order || 0}
+                                    onChange={(e) => reorderClients(i + 1, parseInt(e.target.value))}
+                                >
+                                    {Array.from({ length: (clientCategoryEditState?.length || 0) }, (_, i) => (
+                                        <option value={i + 1}>{i + 1}</option>
+                                    ))}
+                                </select>
                                 <ClientCategoryWidget
                                     key={"client-" + i}
                                     clientCategory={clientCategory}
@@ -508,9 +566,8 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
                                     setClientCategoryEditState={setClientCategoryEditState}
                                     handleDeleteClientCategory={handleDeleteClientCategory}
                                 />
-                            </>
+                            </div>
                         ))}
-                        <DropTarget />
                     </div>
                 </div>
             </div>

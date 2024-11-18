@@ -61,6 +61,13 @@ const AdminHome = () => {
                     </div>
                 </Link>
 
+                <Link className={linkcss} href="/admin/featured_clients">
+                    <div className="font-bold">Featured Clients</div>
+                    <div>
+                        Which clients to feature on the landing page
+                    </div>
+                </Link>
+
                 <Link className={linkcss} href="/admin/images">
                     <div className="font-bold">Images</div>
                     <div>

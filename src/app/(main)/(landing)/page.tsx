@@ -9,6 +9,7 @@ import tef from "./tef.jpeg"
 import { alegraya } from "../../fonts"
 import NumberGoUp from "@/components/NumberGoUp"
 import BigCaptionedImage from "@/components/BigCaptionedImage"
+import { createClient } from "@/supabase/client"
 
 const highlightedClients = [
     {
@@ -28,7 +29,26 @@ const highlightedClients = [
     }
 ]
 
-export default function Home() {
+export default async function Home() {
+    const client = createClient()
+
+
+    const [
+        { data: workCategories, error: workCategoriesError },
+        { data: featuredClients, error: featuredClientsError }
+    ] = await Promise.all([
+        client.from("work_categories").select("*").order("order"),
+        client.from("featured_clients").select("*, clients(name, client_categories(slug))").order("order")
+    ])
+
+    if (workCategoriesError) {
+        console.log(workCategoriesError)
+    }
+
+    if (featuredClientsError) {
+        console.log(featuredClientsError)
+    }
+
     return (
         <main className={alegraya.className}>
             <div className="relative w-full h-lvh bg-black">
@@ -62,7 +82,18 @@ export default function Home() {
             <BigCaptionedImage name="landing_img_1" />
 
             <div className="flex md:flex-row flex-col">
-                <div className="md:w-1/2 text-[40px] p-10 md:px-20 flex flex-col justify-between">
+                {(workCategories || []).slice(0, 2).map(each => (
+                    <div className="md:w-1/2 text-[40px] p-10 md:px-20 flex flex-col justify-between">
+                        <p className="mb-4">
+                            {each.landing_page_description}
+                        </p>
+                        <Link href={`/work/${each.slug}`} className="mt-8 flex items-center">
+                            <div className="text-2xl mr-2 underline">{each.landing_page_link_text}</div>
+                            <FaArrowRight size={24} />
+                        </Link>
+                    </div>
+                ))}
+                {/* <div className="md:w-1/2 text-[40px] p-10 md:px-20 flex flex-col justify-between">
                     <p className="mb-4">
                         We advise <Link className="" href="/clients/families-individuals-and-foundations">families, individuals & foundations</Link>.
                     </p>
@@ -83,7 +114,7 @@ export default function Home() {
                         <div className="text-2xl md:mr-2 underline">Read about our impact consulting work</div>
                         <FaArrowRight size={24} />
                     </Link>
-                </div>
+                </div> */}
             </div>
 
             {/* <div>
@@ -111,16 +142,14 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* <img src="/img/Copia de FDS.jpg" className="w-full h-auto" /> */}
-
             <BigCaptionedImage name="landing_img_3" />
 
-            <div className="text-[40px] py-4 md:py-10 px-10 md:px-20 font-bold">
+            <div id="client-highlights" className="text-[40px] py-4 md:py-10 px-10 md:px-20 font-bold">
                 Client Highlights
             </div>
 
             <div className="flex md:flex-row flex-col">
-                {highlightedClients.map(({ src, tagLine, href }) => (
+                {/* {highlightedClients.map(({ src, tagLine, href }) => (
                     <div className="flex flex-col justify-between md:w-1/3 text-3xl p-10 md:px-20">
                         <div className="flex items-center w-full max-w-[350px] min-w-[200px] h-auto">
                             <img className="w-full object-fit" src={src} />
@@ -133,6 +162,20 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
+                ))} */}
+                {(featuredClients || []).map(client => (
+                    <div className="flex flex-col justify-between md:w-1/3 text-3xl p-10 md:px-20">
+                    <div className="flex items-center w-full max-w-[350px] min-w-[200px] h-auto">
+                        <img className="w-full object-fit" src={client.img || ""} />
+                    </div>
+                    <div className="my-8">{client.description}</div>
+                    <div className={"grow"} />
+                    <div className="flex items-center w-fill">
+                        <Link href={`/clients/${client.clients?.client_categories?.slug}#${client.client_id}`}>
+                            <FaArrowRight size={42} />
+                        </Link>
+                    </div>
+                </div>
                 ))}
             </div>
         </main>
