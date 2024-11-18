@@ -1,6 +1,7 @@
 import YouTube from "@/components/YouTube"
 import { createClient } from "@/supabase/server"
 import Link from "next/link"
+import { FaYoutube } from "react-icons/fa"
 
 const Events = async () => {
 
@@ -32,6 +33,7 @@ const Events = async () => {
                 <video
                     autoPlay
                     loop
+                    playsInline
                     muted>
                     <source src={"./video/teleatalksloop4.mp4"} type="video/mp4" />
                 </video>
@@ -44,9 +46,14 @@ const Events = async () => {
                         Telea Talks is a platform where we bring together inspiring speakers who are making a
                         significant impact in the fields of women's empowerment, environmental conservation, advocacy,
                         along with guests engaged in business and finance, academic leaders, youth activists, writers,
-                        artists and philanthropists.Our talks feature diverse voices and innovative ideas, offering
+                        artists and philanthropists. Our talks feature diverse voices and innovative ideas, offering
                         valuable insights and fostering meaningful discussions.
+                        <div className="underline mt-4 flex gap-1 items-center text-sm">
+                            <FaYoutube />
+                            <div>Find all Telea Talks on YouTube</div>
+                        </div>
                     </div>
+                    
                 </>
 
                 <div className="col-start-1 col-span-12 border-b border-black" />

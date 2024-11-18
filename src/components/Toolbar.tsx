@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { FaYoutube } from "react-icons/fa"
 import { FaInstagram, FaLinkedin } from "react-icons/fa6"
 import { GoSun } from "react-icons/go"
-import { IoMdArrowDropdown, IoMdArrowDropright, IoMdClose } from "react-icons/io"
+import { IoMdArrowDropdown, IoMdArrowDropright, IoMdClose, IoMdMenu } from "react-icons/io"
 import { LuSendHorizonal } from "react-icons/lu"
 import LoginWidget from "./LoginWidget"
 import { createClient } from "@/supabase/client"
@@ -71,9 +71,10 @@ const Toolbar = () => {
 
             {!open &&
                 <div
-                    className="relative right-4 top-4 hover:animate-spin"
+                    className="relative right-4 top-4"
                     onClick={() => setOpen(true)}>
-                    <GoSun color={"#FFE100"} size={60} strokeWidth={1} />
+                    <IoMdMenu className="md:hidden" color={"#383838"} size={30} strokeWidth={1} />
+                    <IoMdMenu className="hidden md:block" color={"#383838"} size={60} strokeWidth={1} />
                 </div>
             }
 
@@ -83,6 +84,7 @@ const Toolbar = () => {
                         className="z-20 absolute right-4 top-4"
                         onClick={() => { setOpen(false) }}>
                         <IoMdClose color={"white"} size={60} strokeWidth={3} />
+                        {/* <IoMdClose className="md:hidden" color={"black"} size={30} strokeWidth={3} /> */}
                     </div>
                     <div className="z-10 absolute w-full h-full flex flex-col justify-between p-16">
                         <div className="w-full h-full flex flex-col justify-start">
@@ -186,13 +188,13 @@ const Toolbar = () => {
                             </form>
 
                             <div className="flex my-20 gap-4">
-                                <Link href="https://www.linkedin.com/company/telea-insights" target="_blank">
+                                <Link href="/external/linkedin" target="_blank">
                                     <FaLinkedin size={24} color="white" />
                                 </Link>
-                                <Link href="https://www.youtube.com/channel/UCRDqfURCXmDW29Q9Tyv4d8Q" target="_blank">
+                                <Link href="/external/youtube" target="_blank">
                                     <FaYoutube size={24} color="white" />
                                 </Link>
-                                <Link href="https://www.instagram.com/telea.insights/" target="_blank">
+                                <Link href="/external/instagram" target="_blank">
                                     <FaInstagram size={24} color="white" />
                                 </Link>
                             </div>

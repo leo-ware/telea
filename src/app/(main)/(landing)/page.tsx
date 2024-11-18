@@ -8,11 +8,12 @@ import fds from "./fds_logo.png"
 import tef from "./tef.jpeg"
 import { alegraya } from "../../fonts"
 import NumberGoUp from "@/components/NumberGoUp"
+import BigCaptionedImage from "@/components/BigCaptionedImage"
 
 const highlightedClients = [
     {
         src: tef.src,
-        tagLine: "Built and Managed Organization and Media Production",
+        tagLine: "Developed Philanthropic Vision, Management, Media Production",
         href: "/clients/families-individuals-and-foundations#54f1b555-1388-40c6-8659-77980e78058a"
     },
     {
@@ -22,7 +23,7 @@ const highlightedClients = [
     },
     {
         src: fds.src,
-        tagLine: "Organizational Strategy, Fund Development and Visibility Enhancement",
+        tagLine: "Strategy, Fund Development and Visibility Enhancement",
         href: "/clients/non-profits#7dbee397-6494-4bd9-9524-c296c9159aa1"
     }
 ]
@@ -38,13 +39,14 @@ export default function Home() {
                     className="z-10 absolute w-full h-lvh object-cover"
                     src="/video/generic-landing.mp4"
                     autoPlay
+                    playsInline
                     loop
                     muted />
             </div>
 
             <div className={" text-[40px] p-10 md:px-40 bg-[#219ebc] text-white"}>
                 <p className="mb-8 md:mb-4">
-                    Accelerating impact for leaders championing women, nature, social justice and Africa.
+                    Accelerating impact for philanthropic and non-profit leaders.
                 </p>
                 <p>
                     Telea Insights empowers leaders with strategy,
@@ -57,12 +59,10 @@ export default function Home() {
                 </div>
             </div>
 
-            <div>
-                <img src={"/img/Campus-overview.webp"} className="w-full" />
-            </div>
+            <BigCaptionedImage name="landing_img_1" />
 
             <div className="flex md:flex-row flex-col">
-                <div className="md:w-1/2 text-[40px] p-10 md:px-20">
+                <div className="md:w-1/2 text-[40px] p-10 md:px-20 flex flex-col justify-between">
                     <p className="mb-4">
                         We advise <Link className="" href="/clients/families-individuals-and-foundations">families, individuals & foundations</Link>.
                     </p>
@@ -72,9 +72,9 @@ export default function Home() {
                     </Link>
                 </div>
 
-                <div className="md:w-1/2 text-[40px] p-10 md:px-20">
+                <div className="md:w-1/2 text-[40px] p-10 md:px-20 flex flex-col justify-between">
                     <p className="mb-4 ">
-                        We consult for <Link className="" href="/clients/non-profits">nonprofits</Link>,{" "}
+                        We consult for <Link className="" href="/clients/non-profits">non-profits</Link>,{" "}
                         <Link className="" href="/clients/social-enterprises">social enterprises</Link> & {" "}
                         <Link className="" href="/clients/media-ventures">media ventures</Link>.
                     </p>
@@ -86,13 +86,15 @@ export default function Home() {
                 </div>
             </div>
 
-            <div>
+            {/* <div>
                 <img src={"/img/from_nitin_2.jpeg"} className="w-full" />
-            </div>
+            </div> */}
+
+            <BigCaptionedImage name="landing_img_2" />
 
             <div className="text-[40px] p-10 md:px-40">
                 <div className="mb-8 md:mb-4">
-                    <div className="mb-8">Since 2015, we have</div>
+                    <div className="mb-8">Since 2023, we have</div>
                     <div className="flex justify-center">
                         <div className="w-full" data-aos="fade-left">
                             Worked with <NumberGoUp target={15} duration={1000} /> clients<br />
@@ -109,7 +111,9 @@ export default function Home() {
                 </div>
             </div>
 
-            <img src="/img/Copia de FDS.jpg" className="w-full h-auto" />
+            {/* <img src="/img/Copia de FDS.jpg" className="w-full h-auto" /> */}
+
+            <BigCaptionedImage name="landing_img_3" />
 
             <div className="text-[40px] py-4 md:py-10 px-10 md:px-20 font-bold">
                 Client Highlights

@@ -91,6 +91,7 @@ const Footer = async () => {
                 <Link href="/contact" className="flex items-center text-lg gap-4 md:ml-[32px] mt-2">
                     Contact Us <FaArrowRight />
                 </Link>
+                <div className="flex items-center text-lg gap-4 md:ml-[32px] mt-4 text-xs">© {new Date().getFullYear()} Telea Insights</div>
             </div>
 
 

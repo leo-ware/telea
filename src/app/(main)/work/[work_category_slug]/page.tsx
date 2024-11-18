@@ -1,3 +1,5 @@
+import Markdown from "@/components/Markdown"
+import NewHeader from "@/components/NewHeader"
 import { createClient } from "@/supabase/server"
 import Link from "next/link"
 import { redirect } from "next/navigation"
@@ -27,17 +29,23 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
 
     return (
         <div className="w-full">
-            <div className="w-full flex flex-col items-center px-10 py-10" style={{ backgroundColor: workCategory.backsplash }}>
+            {/* <div className="w-full flex flex-col items-center px-10 py-10" style={{ backgroundColor: workCategory.backsplash }}>
                 <div className={" font-bold text-[50px] md:text-[80px] leading-tight"}>{workCategory.name}</div>
 
                 <div className={" text-[25px] font-[100] mt-4 md:mt-[-15px]"}>
                     {workCategory.tagline}
                 </div>
-            </div>
+            </div> */}
+
+            <NewHeader
+                title={workCategory.name || ""}
+                subtitle={workCategory.tagline || ""}
+                backgroundColor={workCategory.backsplash || ""}
+            />
 
             {workCategory.img && <img src={workCategory.img} className="w-full h-auto max-h-[700px] object-cover" />}
 
-            <div className={" font-thin text-[30px] md:text-[40px] py-4 px-4 md:px-40 leading-tight"}>
+            <div className={" font-thin text-[25px] md:text-[40px] py-4 px-4 md:px-40 leading-tight"}>
                 <p className="mb-4">
                     {workCategory.description}
                 </p>

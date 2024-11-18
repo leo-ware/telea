@@ -38,10 +38,8 @@ you will need access to Nitin's account.
 
 ## Database
 
-The database is a Postgres database hosted on Supabase.
-I am in the process of migrating to AWS because it's free. I will let
-you know when this is done.
-
+The database is a Postgres database hosted on Supabase located [here](https://supabase.com/dashboard/project/rbdxrsvwmsbsivvedzyv).
+Nitin (nitin@teleinsights.com) has an account on supabase with admin access.
 
 ## Dependencies
 

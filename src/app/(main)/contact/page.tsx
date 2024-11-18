@@ -41,7 +41,7 @@ const Contact = () => {
                         value={purpose}
                         onChange={(e) => setPurpose(e.target.value)}
                     >
-                        <option>Hire Telea’s Services</option>
+                        <option>Inquire about Telea’s Services</option>
                         <option>Collaborate with Telea</option>
                         <option>Speaking opportunities</option>
                         <option>Refer a client</option>

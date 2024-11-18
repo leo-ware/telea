@@ -60,6 +60,20 @@ const AdminHome = () => {
                         E.g., Nonprofits
                     </div>
                 </Link>
+
+                <Link className={linkcss} href="/admin/images">
+                    <div className="font-bold">Images</div>
+                    <div>
+                        Edit images displayed in key locations, such as the landing page
+                    </div>
+                </Link>
+
+                <Link className={linkcss} href="/admin/external_links">
+                    <div className="font-bold">External Links</div>
+                    <div>
+                        Manage external links, such as social media
+                    </div>
+                </Link>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 const CreateJobPost = () => {
-    return redirect("https://forms.gle/ZftBtjrWmNamWiCG6")
+    return redirect("/external/post_a_job")
 }
 
 export default CreateJobPost

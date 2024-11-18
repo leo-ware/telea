@@ -47,6 +47,13 @@ const Careers = async () => {
             </div>
             <div className="px-8 md:px-20">
                 <div className="py-20">
+                    <Link href="/create-job-post" target="_blank">
+                        <div className="text-2xl font-bold">Hiring?</div>
+                        <div className="my-4">We host open positions from a variety of organizations with aligned missions.</div>
+                        <div className="py-2 px-3 border border-black rounded-3xl w-fit">Post a Job</div>
+                    </Link>
+                </div>
+                <div className="">
                     <div className="pb-6 text-2xl font-bold">Jobs at Telea</div>
                     <div className="flex flex-wrap gap-12">
                         {teleaJobs.map(job => <JobWidget {...job} />)}
@@ -54,20 +61,14 @@ const Careers = async () => {
                     {!teleaJobs.length && <div className="text-md text-gray-500">No jobs are currently listed.</div>}
                 </div>
 
-                <div className="">
+                <div className="py-20">
                     <div className="pb-6 text-2xl font-bold">Partner Jobs</div>
                     <div className="flex flex-wrap gap-12">
                         {partnerJobs.map(job => <JobWidget {...job} />)}
                     </div>
                     {!partnerJobs.length && <div className="text-md text-gray-500">No jobs are currently listed.</div>}
                 </div>
-                <div className="py-20">
-                    <Link href="/create-job-post" target="_blank">
-                        <div className="text-2xl font-bold">Hiring?</div>
-                        <div className="my-4">We host open positions from a variety of organizations with aligned missions.</div>
-                        <div className="py-2 px-3 border border-black rounded-3xl w-fit">Post a Job</div>
-                    </Link>
-                </div>
+
             </div>
 
         </div>
