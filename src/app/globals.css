@@ -24,6 +24,10 @@ textarea:focus {
     outline: none;
 }
 
+.space-children-p p {
+    margin-bottom: 1.5rem;
+}
+
 /* Remove background color from scrollbar track */
 ::-webkit-scrollbar {
     width: 12px; /* Customize width if needed */

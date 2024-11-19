@@ -1,8 +1,8 @@
-import Markdown from "@/components/Markdown"
 import NewHeader from "@/components/NewHeader"
 import { createClient } from "@/supabase/server"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import Markdown from "react-markdown"
 
 const WorkCategoryPage = async ({ params }: { params: { work_category_slug: string } }) => {
     const client = createClient()
@@ -45,10 +45,11 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
 
             {workCategory.img && <img src={workCategory.img} className="w-full h-auto max-h-[700px] object-cover" />}
 
-            <div className={" font-thin text-[25px] md:text-[40px] py-4 px-4 md:px-40 leading-tight"}>
-                <p className="mb-4">
+            <div className={" font-thin text-[25px] md:text-[40px] py-4 px-4 md:px-40 leading-tight space-children-p"}>
+                {/* <p className="mb-4">
                     {workCategory.description}
-                </p>
+                </p> */}
+                <Markdown>{workCategory.description}</Markdown>
             </div>
 
             <div className="relative flex flex-col gap-8 md:gap-12 lg:grid lg:grid-cols-12 pb-6 md:py-20 leading-tight px-4 md:px-20 text-[24px]">

@@ -46,6 +46,7 @@ const Contact = () => {
                         <option>Speaking opportunities</option>
                         <option>Refer a client</option>
                         <option>Request Press Kit</option>
+                        <option>Nominate Telea Talk</option>
                         <option>Other</option>
                     </select>
 

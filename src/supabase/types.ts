@@ -129,6 +129,7 @@ export type Database = {
       }
       events: {
         Row: {
+          boost: boolean
           date: string | null
           description: string | null
           id: number
@@ -139,6 +140,7 @@ export type Database = {
           youtube_watch_link: string | null
         }
         Insert: {
+          boost?: boolean
           date?: string | null
           description?: string | null
           id?: number
@@ -149,6 +151,7 @@ export type Database = {
           youtube_watch_link?: string | null
         }
         Update: {
+          boost?: boolean
           date?: string | null
           description?: string | null
           id?: number

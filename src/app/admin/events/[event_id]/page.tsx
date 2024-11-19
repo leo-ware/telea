@@ -122,6 +122,17 @@ const EventPage = ({ params }: { params: { event_id: string } }) => {
                 <label>This event should be shown on the main site</label>
             </div>
 
+            <div className="flex flex-row items-center gap-4 mb-4">
+                <input
+                    disabled={!editMode}
+                    type="checkbox"
+                    className="border border-gray-300 rounded-md p-2"
+                    checked={eventState.boost}
+                    onChange={(e) => setEventState({ ...eventState, boost: e.target.checked })}
+                />
+                <label>Boost</label>
+            </div>
+
             <label>Title</label>
             <input
                 disabled={!editMode}

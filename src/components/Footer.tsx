@@ -3,24 +3,6 @@ import Logo from "./Logo"
 import { FaArrowRight } from "react-icons/fa6"
 import { createClient } from "@/supabase/server"
 
-const footerLinks = {
-    "Impact Consulting": [
-        { name: "Non Profits", href: "/clients/non-profits" },
-        { name: "Social Enterprises", href: "/clients/social-enterprises" },
-        { name: "Media Ventures", href: "/clients/media-ventures" },
-    ],
-    "Philanthropic Advising": [
-        // { name: "", href: "/clients/families-and-individuals" },
-        // { name: "Donors", href: "/clients/donors" },
-        { name: "Families, Individuals and Foundations", href: "/clients/families-individuals-and-foundations" },
-    ],
-    "Company": [
-        { name: "Events", href: "/events" },
-        { name: "Careers", href: "/careers" },
-        { name: "People", href: "/people" },
-    ],
-}
-
 const Footer = async () => {
     const client = createClient()
 
@@ -42,13 +24,13 @@ const Footer = async () => {
 
     return (
         <div className="w-full h-fit p-10 md:px-44 flex gap-4 md:gap-0 flex-col lg:flex-row justify-between bg-black text-white">
-            <div className="md:ml-10 w-7/12 h-fit flex flex-col md:flex-row gap-1 md:gap-8">
+            <div className="w-full lg:w-7/12 h-fit flex flex-col gap-1 justify-evenly md:flex-row md:gap-8">
                 {(workCategories || []).map((workCategory) => {
                     const myClients = clientCategories
                         ?.filter((clientCategory) => clientCategory.work_category_id === workCategory.id)
                         ?.toSorted((a, b) => (a.order || 0) - (b.order || 0))
                     return (
-                        <div className="basis-fit grow mb-4" key={workCategory.id}>
+                        <div className="basis-0 grow-0 md:w-1/3 mb-4" key={workCategory.id}>
                             <div className="text-lg md:font-bold md:mb-4">
                                 <Link href={"/work/" + workCategory.slug}>
                                     {workCategory.name}
@@ -65,7 +47,7 @@ const Footer = async () => {
                     )
                 })}
 
-                <div className="basis-fit grow mb-4">
+                <div className="basis-0 grow-0 md:w-1/3 mb-4">
                     <div className="text-lg md:font-bold md:mb-4">
                         <Link href="/about">
                             Company

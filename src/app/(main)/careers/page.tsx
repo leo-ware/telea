@@ -42,7 +42,7 @@ const Careers = async () => {
                 <div className="text-[80px]">Careers</div>
 
                 <div className={" text-[30px] font-[100] pt-12 pb-8 w-7/12 text-center leading-tight"}>
-                    Explore jobs at Telea and our parters.
+                    Explore jobs at Telea and our partners.
                 </div>
             </div>
             <div className="px-8 md:px-20">
