@@ -24,13 +24,13 @@ const Footer = async () => {
 
     return (
         <div className="w-full h-fit p-10 md:px-44 flex gap-4 md:gap-0 flex-col lg:flex-row justify-between bg-black text-white">
-            <div className="w-full lg:w-7/12 h-fit flex flex-col gap-1 justify-evenly md:flex-row md:gap-8">
+            <div className="w-full lg:w-8/12 h-fit flex flex-col gap-1 justify-evenly md:flex-row md:gap-8">
                 {(workCategories || []).map((workCategory) => {
                     const myClients = clientCategories
                         ?.filter((clientCategory) => clientCategory.work_category_id === workCategory.id)
                         ?.toSorted((a, b) => (a.order || 0) - (b.order || 0))
                     return (
-                        <div className="basis-0 grow-0 md:w-1/3 mb-4" key={workCategory.id}>
+                        <div className="basis-0 md:basis-1/3 grow-0 md:w-1/3 mb-4" key={workCategory.id}>
                             <div className="text-lg md:font-bold md:mb-4">
                                 <Link href={"/work/" + workCategory.slug}>
                                     {workCategory.name}
@@ -47,7 +47,7 @@ const Footer = async () => {
                     )
                 })}
 
-                <div className="basis-0 grow-0 md:w-1/3 mb-4">
+                <div className="basis-0 md:basis-1/3 grow-0 md:w-1/3 mb-4">
                     <div className="text-lg md:font-bold md:mb-4">
                         <Link href="/about">
                             Company

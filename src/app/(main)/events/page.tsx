@@ -87,7 +87,7 @@ const Events = async () => {
                     <>
                         <div className=" col-span-2 col-start-3">
                             <div>{talk.title}</div>
-                            <div className="text-sm pt-4">{talk.date}</div>
+                            {/* <div className="text-sm pt-4">{talk.date}</div> */}
                             {/* <div className="text-sm">{talk.location}</div> */}
                         </div>
                         <div className="mb-10 font-thin col-span-6 col-start-5">
