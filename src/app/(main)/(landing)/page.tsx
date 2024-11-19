@@ -60,6 +60,8 @@ export default async function Home() {
                     src="/video/generic-landing.mp4"
                     autoPlay
                     playsInline
+                    // @ts-ignore
+                    playsinline={true}
                     loop
                     muted />
             </div>
