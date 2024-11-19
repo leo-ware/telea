@@ -3,35 +3,14 @@ import Logo from "@/components/Logo"
 import { FaArrowRight } from "react-icons/fa"
 import Link from "next/link"
 
-import doe from "./doe_logo.jpg"
-import fds from "./fds_logo.png"
-import tef from "./tef.jpeg"
 import { alegraya } from "../../fonts"
 import NumberGoUp from "@/components/NumberGoUp"
 import BigCaptionedImage from "@/components/BigCaptionedImage"
 import { createClient } from "@/supabase/client"
-
-const highlightedClients = [
-    {
-        src: tef.src,
-        tagLine: "Developed Philanthropic Vision, Management, Media Production",
-        href: "/clients/families-individuals-and-foundations#54f1b555-1388-40c6-8659-77980e78058a"
-    },
-    {
-        src: doe.src,
-        tagLine: "Organizational Development, Fundraising and Campaign Management",
-        href: "/clients/families-individuals-and-foundations#71669827-451d-4bab-b06a-7377515c3550",
-    },
-    {
-        src: fds.src,
-        tagLine: "Strategy, Fund Development and Visibility Enhancement",
-        href: "/clients/non-profits#7dbee397-6494-4bd9-9524-c296c9159aa1"
-    }
-]
+import LandingVideo from "./LandingVideo"
 
 export default async function Home() {
     const client = createClient()
-
 
     const [
         { data: workCategories, error: workCategoriesError },
@@ -55,15 +34,7 @@ export default async function Home() {
                 <div className="z-20 absolute w-full h-full p-10 flex justify-start items-end">
                     <Logo width={300} />
                 </div>
-                <video
-                    className="z-10 absolute w-full h-lvh object-cover"
-                    src="/video/generic-landing.mp4"
-                    autoPlay
-                    playsInline
-                    // @ts-ignore
-                    playsinline={true}
-                    loop
-                    muted />
+                <LandingVideo />
             </div>
 
             <div className={" text-[40px] p-10 md:px-40 bg-[#219ebc] text-white"}>
