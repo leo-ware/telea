@@ -6,12 +6,14 @@ import { FaYoutube } from "react-icons/fa"
 const Events = async () => {
 
     const client = createClient()
+
     const { data: upcomingEvents, error: upcomingEventsError } = await client
         .from('events')
         .select('*')
         .order('date', { ascending: true })
         .gte('date', new Date().toISOString())
         .limit(3)
+    
     const { data: pastEvents, error: pastEventsError } = await client
         .from('events')
         .select('*')
@@ -49,7 +51,7 @@ const Events = async () => {
                         along with guests engaged in business and finance, academic leaders, youth activists, writers,
                         artists and philanthropists. Our talks feature diverse voices and innovative ideas, offering
                         valuable insights and fostering meaningful discussions.
-                        <div className="underline mt-4 flex gap-1 items-center text-sm">
+                        <div className="underline mt-4 flex gap-1 items-center text-sm cursor-pointer">
                             <FaYoutube />
                             <div>Find all Telea Talks on YouTube</div>
                         </div>
