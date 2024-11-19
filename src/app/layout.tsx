@@ -18,6 +18,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Analytics />
+            <head>
+                <link rel="icon" href="/favicon.ico" />
+            </head>
             <body className={alegraya.className + " h-screen w-screen "}>
                 <Providers>
                     {children}

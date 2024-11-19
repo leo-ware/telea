@@ -45,18 +45,18 @@ const WorkCategoryPage = async ({ params }: { params: { work_category_slug: stri
 
             {workCategory.img && <img src={workCategory.img} className="w-full h-auto max-h-[700px] object-cover" />}
 
-            <div className={" font-thin text-[25px] md:text-[40px] py-4 px-4 md:px-40 leading-tight space-children-p"}>
+            <div className={" font-thin text-[25px] md:text-[30px] lg:text-[40px] py-4 px-4 sm:px-8 md:px-40 leading-tight space-children-p"}>
                 {/* <p className="mb-4">
                     {workCategory.description}
                 </p> */}
                 <Markdown>{workCategory.description}</Markdown>
             </div>
 
-            <div className="relative flex flex-col gap-8 md:gap-12 lg:grid lg:grid-cols-12 pb-6 md:py-20 leading-tight px-4 md:px-20 text-[24px]">
+            <div className="relative flex flex-col gap-8 lg:gap-12 lg:grid lg:grid-cols-10 pb-6 lg:py-20 leading-tight px-4 sm:px-8 md:px-40 text-[24px]">
                 {clientCategories?.toSorted((a, b) => (a.order || 0) - (b.order || 0)).map((clientCategory) => (
                     <>
-                        <div className="col-span-2 col-start-3 font-bold">{clientCategory.name}</div>
-                        <div className="font-thin col-span-12 col-start-5 mb-8">
+                        <div className="col-span-2 col-start-1 font-bold">{clientCategory.name}</div>
+                        <div className="font-thin col-span-12 col-start-4 mb-8">
                             <div>
                                 {clientCategory.link_description}
                             </div>
