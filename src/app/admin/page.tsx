@@ -19,6 +19,13 @@ const AdminHome = () => {
             </div>
 
             <div className="flex flex-wrap gap-6">
+                <Link className={linkcss} href="/admin/inbox">
+                    <div className="font-bold">Inbox</div>
+                    <div>
+                        Events you should be aware of
+                    </div>
+                </Link>
+
                 <Link className={linkcss} href="/admin/jobs">
                     <div className="font-bold">Jobs</div>
                     <div>

@@ -15,6 +15,7 @@ const Events = async () => {
     const { data: pastEvents, error: pastEventsError } = await client
         .from('events')
         .select('*')
+        .order('boost', { ascending: false })
         .order('date', { ascending: false })
         .lt('date', new Date().toISOString())
         .eq('show', true)

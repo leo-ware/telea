@@ -4,10 +4,8 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FaYoutube } from "react-icons/fa"
 import { FaInstagram, FaLinkedin } from "react-icons/fa6"
-import { GoSun } from "react-icons/go"
 import { IoMdArrowDropdown, IoMdArrowDropright, IoMdClose, IoMdMenu } from "react-icons/io"
 import { LuSendHorizonal } from "react-icons/lu"
-import LoginWidget from "./LoginWidget"
 import { createClient } from "@/supabase/client"
 import { Database } from "@/supabase/types"
 import { MdLogin } from "react-icons/md"
@@ -176,17 +174,34 @@ const Toolbar = () => {
                                 </div>
                             </div>
 
-                            <form>
+                            <form
+                                action={"https://teleainsights.us13.list-manage.com/subscribe/post?u=302fa51ca727184ed9c135ec2&amp;id=605bcf89fa&amp;f_id=0014a2e1f0"}
+                                method="post"
+                                target="_blank"
+                                name="mc-embedded-subscribe-form"
+                                // noValidate={true}
+                            >
                                 <label>
                                     <div>Subscribe to our newsletter</div>
                                     <div className="flex items-center gap-2">
-                                        <input type="email" placeholder="Your Email" className="px-2 py-1 border border-black text-black" />
-                                        <button className="">
+                                        <input
+                                            type="email"
+                                            name="EMAIL"
+                                            required={true}
+                                            placeholder="Your Email"
+                                            className="px-2 py-1 border border-black text-black"
+                                        />
+                                        <input className="hidden" type="text" name="b_302fa51ca727184ed9c135ec2_605bcf89fa" tabIndex={-1} value=""/>
+                                        {/* <input type="submit" name="subscribe" id="mc-embedded-subscribe" className="button" value="Subscribe"/> */}
+                                        <button
+                                            type="submit"
+                                            name="subscribe"
+                                            value="Subscribe"
+                                            >
                                             <LuSendHorizonal color="white" size={24} />
                                         </button>
                                     </div>
                                 </label>
-
                             </form>
 
                             <div className="flex my-20 gap-4">

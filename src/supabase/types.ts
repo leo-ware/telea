@@ -210,6 +210,33 @@ export type Database = {
           },
         ]
       }
+      inbox: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string | null
+          purpose: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          purpose?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          purpose?: string | null
+        }
+        Relationships: []
+      }
       jobs: {
         Row: {
           application: string | null
