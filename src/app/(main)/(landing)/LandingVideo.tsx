@@ -14,7 +14,7 @@ export default function LandingVideo() {
 
     return (
         <video
-            className="z-10 absolute w-full h-lvh object-cover"
+            className="z-10 absolute w-full h-lvh object-cover video-noplay"
             controls={false}
             autoPlay
             playsInline

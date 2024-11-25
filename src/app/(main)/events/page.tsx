@@ -34,6 +34,7 @@ const Events = async () => {
 
             <div className="w-full">
                 <video
+                    className="video-noplay"
                     autoPlay
                     loop
                     playsInline
