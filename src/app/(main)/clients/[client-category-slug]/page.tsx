@@ -40,7 +40,7 @@ const Page = async ({ params }: { params: { "client-category-slug": string } }) 
 
             <div className="flex flex-col md:flex-row items-stretch font-thin text-[20px] md:text-[30px] lg:text-[40px] py-4 px-8 md:px-20 lg:px-40 leading-tight">
                 <div className="flex items-center md:w-1/3 font-bold">
-                    <div>What we can do</div>
+                    <div className="mb-2 md:mb-0">What we can do</div>
                 </div>
                 <div className="md:pl-8 md:w-2/3 pb-6 md:py-10 font-100 md:font-[400] leading-tight">
                     {clientCategory.capabilities?.split("\n").map(item => (
