@@ -39,7 +39,7 @@ const Events = async () => {
                     loop
                     playsInline
                     muted>
-                    <source src={"./video/teleatalksloop4.mp4"} type="video/mp4" />
+                    <source src={"https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/teleatalksloop4.mp4?t=2024-11-27T18%3A32%3A58.104Z"} type="video/mp4" />
                 </video>
             </div>
 
