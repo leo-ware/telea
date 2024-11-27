@@ -8,7 +8,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
     const client = createClient()
-    const { error } = await client.from("inbox").select("*")
+    const { error } = await client.from("check_ins").insert({})
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 })
     }

@@ -21,7 +21,7 @@ export default function LandingVideo() {
             ref={videoRef}
             loop
             muted >
-            <source src="/video/generic-landing.mp4" type="video/mp4" />
+            <source src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/generic-landing.mp4?t=2024-11-27T18%3A24%3A59.588Z" type="video/mp4" />
         </video>
     )
 }
