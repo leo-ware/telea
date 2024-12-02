@@ -18,8 +18,9 @@ const checkIOS = () => {
 export default function LandingVideo() {
 
     const imgSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/landing-static%20(1).png"
+    const videoSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/generic-landing.mp4?t=2024-11-27T18%3A24%3A59.588Z"
 
-    const [isIOS, setIsIOS] = useState(false)
+    const [showVideo, setShowVideo] = useState(false)
 
     const videoRef = useRef<HTMLVideoElement>(null)
     useEffect(() => {
@@ -29,29 +30,24 @@ export default function LandingVideo() {
         }
     }, [videoRef.current])
 
-    useEffect(() => {
-        setIsIOS(checkIOS())
-    }, [])
-
-    return (isIOS
-        ? (
+    return (
+        <div className="w-full h-fit">
             <img
-                className="z-10 absolute w-full h-lvh object-cover"
+                className={"z-10 absolute w-full h-lvh object-cover " + (showVideo ? "hidden" : "")}
                 src={imgSrc}
                 alt="landing video" />
-        )
-        : (
+            
             <video
-                className="z-10 absolute w-full h-lvh object-cover video-noplay"
-                // onSuspend={() => setIsIOS(checkIOS())}
-                controls={false}
+                className = {"z-10 absolute w-full h-lvh object-cover video-noplay " + (showVideo ? "" : "hidden")}
+                controls = { false }
+                onPlay={() => setShowVideo(true)}
                 autoPlay
                 playsInline
-                ref={videoRef}
+                ref = { videoRef }
                 loop
                 muted >
-                <source src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/generic-landing.mp4?t=2024-11-27T18%3A24%3A59.588Z" type="video/mp4" />
-            </video>
-        )
+                <source src = { videoSrc } type = "video/mp4" />
+            </video >
+        </div>
     )
 }
