@@ -20,8 +20,8 @@ in the unlikely event that I can't be reached in the future.
 This website is hosted on Vercel. This is free and industry standard. The vercel deployment
 is under my (Leo's) account. Contact me if there are any issues with this.
 
-I do not control the domain name, teleainsights.com. To my knowledge, this is currently
-registered on Squarespace.
+I do not control the domain name, teleainsights.com. Last time I dealt with this (November 2024), it was 
+controlled by Eddie Joffe, whose email was ejoffe@netzonetech.com.
 
 ## Authentication
 
@@ -45,9 +45,15 @@ Nitin (nitin@teleinsights.com) has an account on supabase with admin access.
 
 ### Email
 
-I am in the process of integrating this with the Telea mailchimp system.
-Once this is done, this website will use the Mailchimp API when
-user's sign up for the newsletter or when notifications need to be sent to someone from Telea.
+I use the Telea mailchimp system to send emails. This happens when a user submits the contact form.
+These emails get sent to info@teleinsights.com.
+
+I am not using a documented API for this. I just hit the url endpoint used by the mailchimp
+embedded contact us form. This is likely not robust. So, as a backup, messages are copied to
+the inbox in the admin dashboard.
+
+I am doing this because this is the only way I could figure out to get this functionality to work for free.
+Mailchimp has an upcharge for their official email API.
 
 ### Markdown
 
