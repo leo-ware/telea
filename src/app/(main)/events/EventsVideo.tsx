@@ -30,9 +30,9 @@ export default function LandingVideo() {
         }
     }, [videoRef.current])
 
-    // useEffect(() => {
-    //     setIsIOS(checkIOS())
-    // }, [])
+    useEffect(() => {
+        setIsIOS(checkIOS())
+    }, [])
 
     return (isIOS
         ? (
@@ -45,7 +45,7 @@ export default function LandingVideo() {
         : (
             <video
                 className="w-full h-auto object-cover video-noplay"
-                onSuspend={() => setIsIOS(checkIOS())}
+                // onSuspend={() => setIsIOS(checkIOS())}
                 controls={false}
                 autoPlay
                 playsInline
