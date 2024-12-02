@@ -18,6 +18,7 @@ const checkIOS = () => {
 export default function LandingVideo() {
 
     const imgSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/landing-static%20(1).png"
+    const videoSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/teleatalksloop4.mp4?t=2024-11-27T18%3A32%3A58.104Z"
 
     const [isIOS, setIsIOS] = useState(false)
 
@@ -35,14 +36,15 @@ export default function LandingVideo() {
 
     return (isIOS
         ? (
-            <img
-                className="z-10 absolute w-full h-lvh object-cover"
-                src={imgSrc}
-                alt="landing video" />
+            <br />
+            // <img
+            //     className="z-10 absolute w-full h-lvh object-cover"
+            //     src={imgSrc}
+            //     alt="landing video" />
         )
         : (
             <video
-                className="z-10 absolute w-full h-lvh object-cover video-noplay"
+                className="w-full h-auto object-cover video-noplay"
                 onSuspend={() => setIsIOS(checkIOS())}
                 controls={false}
                 autoPlay
@@ -50,8 +52,9 @@ export default function LandingVideo() {
                 ref={videoRef}
                 loop
                 muted >
-                <source src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/generic-landing.mp4?t=2024-11-27T18%3A24%3A59.588Z" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
             </video>
         )
     )
 }
+

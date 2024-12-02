@@ -2,6 +2,7 @@ import YouTube from "@/components/YouTube"
 import { createClient } from "@/supabase/server"
 import Link from "next/link"
 import { FaYoutube } from "react-icons/fa"
+import EventsVideo from "./EventsVideo"
 
 const Events = async () => {
 
@@ -33,14 +34,18 @@ const Events = async () => {
             </div>
 
             <div className="w-full">
-                <video
+                <EventsVideo />
+                {/* <video
                     className="video-noplay"
                     autoPlay
                     loop
                     playsInline
                     muted>
-                    <source src={"https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/teleatalksloop4.mp4?t=2024-11-27T18%3A32%3A58.104Z"} type="video/mp4" />
-                </video>
+                    <source
+                    src={"https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/teleatalksloop4.mp4?t=2024-11-27T18%3A32%3A58.104Z"}
+                    type="video/mp4"
+                    />
+                </video> */}
             </div>
 
             <div className="relative flex flex-col gap-6 lg:gap-12 lg:grid grid-cols-12 py-20 leading-tight px-4 md:px-20 text-[24px]">
