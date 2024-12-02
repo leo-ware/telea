@@ -29,30 +29,28 @@ const RollingImage: React.FC<RollingImageProps> = ({ imageSrc, desiredHeight }) 
     }, [desiredHeight]);
 
     return (
-        <div
-            ref={containerRef}
-            className="w-full overflow-hidden"
-            style={{ height: `${desiredHeight}px` }}
-        >
+        <>
+            <div className="w-full h-fit block md:hidden">
+                <img src={imageSrc} className="w-full h-auto" />
+            </div>
+
             <div
-                className="w-full h-full block md:hidden"
-                style={{
-                    backgroundImage: `url(${imageSrc})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                }}
-            />
-            <div
-                className="w-full h-auto hidden md:block"
-                style={{
-                    backgroundImage: `url(${imageSrc})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: `center ${scrollPosition * 100}%`,
-                    height: '200%',
-                    transform: `translateY(${-scrollPosition * 50}%)`,
-                }}
-            />
-        </div>
+                ref={containerRef}
+                className="w-full overflow-hidden hidden md:block"
+                style={{ height: `${desiredHeight}px` }}
+            >
+                <div
+                    className="w-full h-auto"
+                    style={{
+                        backgroundImage: `url(${imageSrc})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: `center ${scrollPosition * 100}%`,
+                        height: '200%',
+                        transform: `translateY(${-scrollPosition * 50}%)`,
+                    }}
+                />
+            </div>
+        </>
     );
 };
 

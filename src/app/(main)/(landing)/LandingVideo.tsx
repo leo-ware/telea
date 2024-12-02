@@ -17,7 +17,7 @@ const checkIOS = () => {
 
 export default function LandingVideo() {
 
-    const imgSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/landing-static.png"
+    const imgSrc = "https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/imgs/landing-static%20(1).png"
 
     const [isIOS, setIsIOS] = useState(false)
 
@@ -29,9 +29,9 @@ export default function LandingVideo() {
         }
     }, [videoRef.current])
 
-    useEffect(() => {
-        setIsIOS(checkIOS())
-    }, [])
+    // useEffect(() => {
+    //     setIsIOS(checkIOS())
+    // }, [])
 
     return (isIOS
         ? (
@@ -43,6 +43,7 @@ export default function LandingVideo() {
         : (
             <video
                 className="z-10 absolute w-full h-lvh object-cover video-noplay"
+                onSuspend={() => setIsIOS(checkIOS())}
                 controls={false}
                 autoPlay
                 playsInline
@@ -52,6 +53,5 @@ export default function LandingVideo() {
                 <source src="https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/generic-landing.mp4?t=2024-11-27T18%3A24%3A59.588Z" type="video/mp4" />
             </video>
         )
-
     )
 }

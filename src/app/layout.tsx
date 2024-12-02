@@ -16,11 +16,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" className="h-screen w-screen">
             <Analytics />
-            {/* <head>
-                <link rel="icon" href="/favicon.ico" />
-            </head> */}
             <body className={alegraya.className + " h-screen w-screen "}>
                 <Providers>
                     {children}
