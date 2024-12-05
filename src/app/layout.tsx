@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 
 import { alegraya } from "./fonts"
-import Providers from "./Providers";
+import Providers from "./Providers"
 
 export const metadata: Metadata = {
     title: "Telea Insights",

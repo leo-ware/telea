@@ -4,52 +4,52 @@
     "description": "Telea Insights empowers leaders with strategy, resources, and systems design to launch ventures that drive positive change.",
     "icons": [
       {
-        "src": "icons/telea-logo-16x16.png",
+        "src": "/icons/telea-logo-16x16.png",
         "sizes": "16x16",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-32x32.png",
+        "src": "/icons/telea-logo-32x32.png",
         "sizes": "32x32",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-48x48.png",
+        "src": "/icons/telea-logo-48x48.png",
         "sizes": "48x48",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-72x72.png",
+        "src": "/icons/telea-logo-72x72.png",
         "sizes": "72x72",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-96x96.png",
+        "src": "/icons/telea-logo-96x96.png",
         "sizes": "96x96",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-144x144.png",
+        "src": "/icons/telea-logo-144x144.png",
         "sizes": "144x144",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-180x180.png",
+        "src": "/icons/telea-logo-180x180.png",
         "sizes": "180x180",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-192x192.png",
+        "src": "/icons/telea-logo-192x192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-256x256.png",
+        "src": "/icons/telea-logo-256x256.png",
         "sizes": "256x256",
         "type": "image/png"
       },
       {
-        "src": "icons/telea-logo-512x512.png",
+        "src": "/icons/telea-logo-512x512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
@@ -57,7 +57,7 @@
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#ff5722",
+    "theme_color": "#219ebc",
     "orientation": "portrait-primary",
     "categories": ["consulting", "nonprofit", "community", "education"],
     "scope": "/",
