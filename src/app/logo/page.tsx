@@ -1,9 +1,5 @@
-import Logo from "@/components/Logo"
+import Icon from "../icon"
 
-export default function LogoPage() {
-    return (
-        <div className="m-4 w-[180px] h-[180px] flex justify-center items-center bg-[#219ebc]">
-            <Logo width={176} />
-        </div>
-    )
-}
+export default () => (
+    <Icon params={{size: "32x32"}} />
+)
