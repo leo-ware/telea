@@ -19,7 +19,7 @@ export const generateImageMetadata = () => {
 }
 
 export default function LogoPage({params}: {params: {size: string}}) {
-    const [width, height] = params.size.split("x").map(Number)
+    // const [width, height] = params.size.split("x").map(Number)
 
     return (
         <div className="w-full h-full flex justify-center items-center bg-[#219ebc]">

@@ -8,6 +8,14 @@ import Providers from "./Providers";
 
 export const metadata: Metadata = {
     title: "Telea Insights",
+    description: "Telea Insights empowers leaders with strategy, resources, and systems design to launch ventures that drive positive change.",
+    themeColor: "#ff5722",
+    openGraph: {
+        title: "Telea Insights",
+        description: "Telea Insights empowers leaders with strategy, resources, and systems design to launch ventures that drive positive change.",
+        url: "https://teleainsights.com",
+        images: ["/icons/telea-logo-512x512.png"],
+    },
 }
 
 export default function RootLayout({
