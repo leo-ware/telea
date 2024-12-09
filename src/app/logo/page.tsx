@@ -1,5 +1,5 @@
 import Icon from "../icon"
 
-export default () => (
-    <Icon params={{size: "32x32"}} />
-)
+export default function Page() {
+    return <Icon params={{size: "32x32"}} />
+}
