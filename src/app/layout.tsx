@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/react"
+import { GoogleTagManager } from '@next/third-parties/google'
 
 import "./globals.css"
 
@@ -25,6 +26,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="h-screen w-screen">
+            <GoogleTagManager gtmId="G-YGZNEVGMMH" />
             <Analytics />
             <body className={alegraya.className + " h-screen w-screen "}>
                 <Providers>
