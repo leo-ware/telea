@@ -54,7 +54,7 @@ const Careers = async () => {
                     </Link>
                 </div>
                 <div className="">
-                    <div className="pb-6 text-2xl font-bold">Jobs at Telea</div>
+                    <div className="pb-6 text-2xl font-bold">Jobs/Opportunities at Telea</div>
                     <div className="flex flex-wrap gap-12">
                         {teleaJobs.map(job => <JobWidget {...job} />)}
                     </div>
@@ -62,7 +62,7 @@ const Careers = async () => {
                 </div>
 
                 <div className="py-20">
-                    <div className="pb-6 text-2xl font-bold">Partner Jobs</div>
+                    <div className="pb-6 text-2xl font-bold">Partner Jobs/Opportunities</div>
                     <div className="flex flex-wrap gap-12">
                         {partnerJobs.map(job => <JobWidget {...job} />)}
                     </div>
