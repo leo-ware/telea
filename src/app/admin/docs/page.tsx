@@ -7,6 +7,10 @@ const content = `
 I am Leo. I built this website in 2024.
 If you need help with something, my permanent email address is leobpware@gmail.com.
 
+**Update 2-27/2025:**
+Github lfs is being annoying about hosting video files on the free tier. So, just don't fetch these and don't commit to them when you edit the repo.
+
+
 ## Code
 
 This website was built with Next.js and Tailwind CSS. The 
