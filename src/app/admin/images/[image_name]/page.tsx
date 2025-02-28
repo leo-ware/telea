@@ -6,10 +6,11 @@ import ImgPicker from "@/components/ImgPicker"
 import Spinner from "@/components/Spinner"
 import { createClient } from "@/supabase/client"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 type SpecialImage = Awaited<ReturnType<typeof getSpecialImage>>
 
-const AdminImage = ({ params }: { params: { image_name: string } }) => {
+const AdminImage = ({ params }: { params: Promise<{ image_name: string }> }) => {
+    const { image_name } = use(params)
     const [state, setState] = useState<SpecialImage | null>(null)
     const [editState, setEditState] = useState<SpecialImage | null>(null)
 
@@ -21,7 +22,7 @@ const AdminImage = ({ params }: { params: { image_name: string } }) => {
     useEffect(() => {
         setLoading(true)
         const fetchImage = async () => {
-            const image = await getSpecialImage(params.image_name)
+            const image = await getSpecialImage(image_name)
             console.log(image)
             setState(image)
             setEditState(image)
@@ -40,7 +41,7 @@ const AdminImage = ({ params }: { params: { image_name: string } }) => {
         const { error } = await client
             .from("special_images")
             .update(editState)
-            .eq("name", params.image_name)
+            .eq("name", image_name)
         if (error) {
             setError(error.message)
         } else {
@@ -59,13 +60,13 @@ const AdminImage = ({ params }: { params: { image_name: string } }) => {
             <Link className="text-blue-500 my-4 text-sm underline" href={"/admin/images"}>
                 Back to Images
             </Link>
-            <div className="text-sm text-gray-500">{params.image_name} - {state?.description}</div>
+            <div className="text-sm text-gray-500">{image_name} - {state?.description}</div>
 
             {state?.display_location && (
                 <Link
                     className="text-blue-500 my-2 text-sm underline"
                     target="_blank"
-                    href={`${state.display_location}#img-${params.image_name}`}
+                    href={`${state.display_location}#img-${image_name}`}
                 >
                     view on main site
                 </Link>

@@ -1,13 +1,14 @@
 import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
 
-export default async function ExternalPage({ params }: { params: { id: string } }) {
+export default async function ExternalPage({ params }: { params: Promise<{ id: string }> }) {
     const client = createClient()
-    console.log(params.id)
+    const { id } = await params
+    
     const { data, error } = await client
         .from("external_links")
         .select("*")
-        .eq("name", params.id)
+        .eq("name", id)
         .single()
 
     if (error) {

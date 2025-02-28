@@ -7,7 +7,7 @@ import { createClient } from "@/supabase/client";
 import { Database } from "@/supabase/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
@@ -173,7 +173,8 @@ const DropTarget = () => {
     )
 }
 
-const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
+const EditWorkCategoryPage = ({ params }: { params: Promise<{ id: string }> }) => {
+    const { id } = use(params)
     const client = createClient()
 
     const [workCategory, setWorkCategory] = useState<WorkCategory | null>(null)
@@ -192,7 +193,7 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             const { data, error } = await client
                 .from("work_categories")
                 .select("*")
-                .eq("id", params.id)
+                .eq("id", id)
                 .single()
 
             if (error) {
@@ -204,13 +205,13 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             setEditState(data)
         }
         fetchWorkCategory()
-    }, [params.id])
+    }, [id])
 
     const fetchClientCategories = async () => {
         const { data, error } = await client
             .from("client_categories")
             .select("*")
-            .eq("work_category_id", params.id)
+            .eq("work_category_id", id)
             .order("order", { ascending: true, nullsFirst: false })
 
         if (error) {
@@ -229,7 +230,7 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             name: "Untitled Client Category",
             link_text: "",
             link_description: "",
-            work_category_id: parseInt(params.id),
+            work_category_id: parseInt(id),
             order: Math.max(...((clientCategoryEditState || []).map(each => each.order || 0))) + 1
         }])
     }
@@ -257,11 +258,11 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
 
             let checkFailed = false
             selectData.forEach((category) => {
-                if (category.name === editState.name && (category.id !== parseInt(params.id))) {
+                if (category.name === editState.name && (category.id !== parseInt(id))) {
                     setErrorState("Work category with this name already exists")
                     checkFailed = true
                 }
-                if (category.slug === editState.slug && (category.id !== parseInt(params.id))) {
+                if (category.slug === editState.slug && (category.id !== parseInt(id))) {
                     setErrorState("Work category with this slug already exists")
                     checkFailed = true
                 }
@@ -277,7 +278,7 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             const { data, error } = await client
                 .from("work_categories")
                 .update(editState)
-                .eq("id", params.id)
+                .eq("id", id)
                 .select()
                 .single()
 
@@ -336,7 +337,7 @@ const EditWorkCategoryPage = ({ params }: { params: { id: string } }) => {
             const { error } = await client
                 .from("work_categories")
                 .delete()
-                .eq("id", params.id)
+                .eq("id", id)
 
             if (error) {
                 setErrorState(error.message)

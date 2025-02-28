@@ -4,16 +4,17 @@ import AutoGrowTextarea from "@/components/AutoGrowTextArea"
 import Spinner from "@/components/Spinner"
 import { createClient } from "@/supabase/client"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import useSWR from "swr"
 import { deleteEvent } from "../actions"
 import { MdCancel, MdDelete, MdEdit } from "react-icons/md"
 import YouTube, { watchLinkToEmbedLink } from "@/components/YouTube"
 
-const EventPage = ({ params }: { params: { event_id: string } }) => {
+const EventPage = ({ params }: { params: Promise<{ event_id: string }> }) => {
+    const { event_id } = use(params)
     const client = createClient()
-    const { data, isLoading, error } = useSWR(`/admin/events/${params.event_id}`, async () => {
-        const { data, error } = await client.from('events').select("*").eq('id', params.event_id).single()
+    const { data, isLoading, error } = useSWR(`/admin/events/${event_id}`, async () => {
+        const { data, error } = await client.from('events').select("*").eq('id', event_id).single()
         if (error) {
             throw new Error(error.message)
         }
@@ -50,7 +51,7 @@ const EventPage = ({ params }: { params: { event_id: string } }) => {
         }
 
         setIsSaving(true)
-        client.from('events').update(eventState).eq('id', params.event_id).then(({ error }) => {
+        client.from('events').update(eventState).eq('id', event_id).then(({ error }) => {
             setIsSaving(false)
             if (error) {
                 throw new Error(error.message)

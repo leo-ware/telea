@@ -4,9 +4,10 @@ import Link from "next/link"
 import { FaExternalLinkAlt } from "react-icons/fa"
 import { IoMdArrowRoundBack } from "react-icons/io"
 
-const JobPosting = async ({ params }: { params: { job_id: string } }) => {
+const JobPosting = async ({ params }: { params: Promise<{ job_id: string }> }) => {
+    const { job_id } = await params
     const client = createClient()
-    const { data: job, error } = await client.from('jobs').select('*').eq('id', params.job_id).single()
+    const { data: job, error } = await client.from('jobs').select('*').eq('id', job_id).single()
     if (error) {
         console.error(error)
     }

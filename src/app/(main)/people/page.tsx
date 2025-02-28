@@ -1,7 +1,3 @@
-import Image from "next/image"
-import TitleBar from "@/components/TitleBar"
-import { ppl } from "./info"
-import { crimson_pro, noto_serif } from "@/app/fonts"
 import { FaArrowRight, FaLinkedin } from "react-icons/fa6"
 import Link from "next/link"
 import { createClient } from "@/supabase/server"

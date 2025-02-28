@@ -5,12 +5,12 @@ import RollingImage from "@/components/RollingImage"
 import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
 
-const Page = async ({ params }: { params: { "client-category-slug": string } }) => {
+const Page = async ({ params }: { params: Promise<{ "client-category-slug": string }> }) => {
     const client = createClient()
     const { data: clientCategory, error } = await client
         .from("client_categories")
         .select("*")
-        .eq("slug", params["client-category-slug"])
+        .eq("slug", (await params)["client-category-slug"])
         .single()
 
     if (error || !clientCategory) {

@@ -4,15 +4,16 @@ import AutoGrowTextarea from "@/components/AutoGrowTextArea"
 import Spinner from "@/components/Spinner"
 import { createClient } from "@/supabase/client"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import useSWR from "swr"
 import { deleteJob } from "../actions"
 import { MdCancel, MdDelete, MdEdit } from "react-icons/md"
 
-const Job = ({ params }: { params: { job_id: string } }) => {
+const Job = ({ params }: { params: Promise<{ job_id: string }> }) => {
     const client = createClient()
-    const { data, isLoading, error } = useSWR("/api/job/" + params.job_id, async () => {
-        const { data, error } = await client.from('jobs').select('*').eq('id', params.job_id).single()
+    const { job_id } = use(params)
+    const { data, isLoading, error } = useSWR("/api/job/" + job_id, async () => {
+        const { data, error } = await client.from('jobs').select('*').eq('id', job_id).single()
         if (error) {
             throw new Error(error.message)
         }

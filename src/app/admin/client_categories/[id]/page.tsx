@@ -1,19 +1,17 @@
 "use client"
 
 import AutoGrowTextarea from "@/components/AutoGrowTextArea"
-import ImgPicker from "@/components/ImgPicker"
 import Spinner from "@/components/Spinner"
 import { createClient } from "@/supabase/client"
 import { Database } from "@/supabase/types"
 import Link from "next/link"
-import { redirect } from "next/navigation"
-import { useEffect, useState } from "react"
-import { FaArrowDown, FaArrowUp } from "react-icons/fa"
+import { use, useEffect, useState } from "react"
 
 export type ClientCategory = Database["public"]["Tables"]["client_categories"]["Row"]
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     const client = createClient()
+    const { id } = use(params)
 
     const [category, setCategory] = useState<ClientCategory | null>(null)
     const [editState, setEditState] = useState<ClientCategory | null>(null)
@@ -46,7 +44,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             .select("id, name, order")
             .eq("category", id)
             .order("order")
-        
+
         if (clientsError) {
             console.log(clientsError.message)
             setErrorState("Error fetching clients")
@@ -86,7 +84,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 .from("clients")
                 .upsert(clientEditState, { onConflict: "id", ignoreDuplicates: false })
                 .select("id,name,order")
-            
+
             if (clientsError) {
                 console.log(clientsError.message)
                 setErrorState("Error updating client order")
@@ -132,7 +130,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 ...each,
                 order: index + 1
             }))
-        
+
         newClientEditState.forEach((each, index) => {
             if (each.order === oldIndex) {
                 each.order = newIndex
@@ -145,15 +143,15 @@ const Page = ({ params }: { params: { id: string } }) => {
                 }
             }
         })
-        
+
         setClientEditState(newClientEditState)
     }
 
     useEffect(() => {
-        if (params.id) {
-            fetchData(params.id)
+        if (id) {
+            fetchData(id)
         }
-    }, [params.id])
+    }, [id])
 
     useEffect(() => {
         if (editState && editState.name) {
@@ -161,7 +159,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         }
     }, [editState?.name])
 
-    if (isLoading) {    
+    if (isLoading) {
         return <Spinner />
     }
 
@@ -171,7 +169,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 Edit Client Category
             </div>
             <div className="flex flex-col my-4 gap-2">
-            <Link className="text-blue-500 underline" href="/admin/client_categories">Back to client categories</Link>
+                <Link className="text-blue-500 underline" href="/admin/client_categories">Back to client categories</Link>
                 {category?.slug &&
                     <Link className="text-blue-500 underline" target="_blank" href={`/clients/${category?.slug}`}>View on main site</Link>}
             </div>

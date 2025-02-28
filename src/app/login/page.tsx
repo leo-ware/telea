@@ -1,11 +1,12 @@
 "use client"
 
 import { createClient } from "@/supabase/client"
-import { useState } from "react"
+import { use, useState } from "react"
 import { FaGoogle } from "react-icons/fa"
 
-const Page = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-    const next = (typeof searchParams.next === "string" && searchParams.next.length > 0) ? searchParams.next : "/admin"
+const Page = ({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {
+    const {next: nextUnchecked} = use(searchParams)
+    const next = (typeof nextUnchecked === "string" && nextUnchecked.length > 0) ? nextUnchecked : "/admin"
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 

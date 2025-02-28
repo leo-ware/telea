@@ -4,15 +4,16 @@ import AutoGrowTextarea from "@/components/AutoGrowTextArea"
 import { createClient } from "@/supabase/client"
 import { Database } from "@/supabase/types"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import { ClientCategory } from "../../client_categories/[id]/page"
 import Spinner from "@/components/Spinner"
 import ImgPicker from "@/components/ImgPicker"
 
 type Client = Database["public"]["Tables"]["clients"]["Row"]
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     const client = createClient()
+    const { id } = use(params)
 
     const [clientCategories, setClientCategories] = useState<ClientCategory[]>([])
     const [clientData, setClientData] = useState<Client | null>(null)
@@ -110,11 +111,11 @@ const Page = ({ params }: { params: { id: string } }) => {
     }
 
     useEffect(() => {
-        if (params.id) {
-            fetchData(params.id)
+        if (id) {
+            fetchData(id)
             fetchClientCategories()
         }
-    }, [params.id])
+    }, [id])
 
     if (!clientData && !errorState) {
         return <div><Spinner /></div>

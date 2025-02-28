@@ -4,13 +4,13 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import Markdown from "react-markdown"
 
-const WorkCategoryPage = async ({ params }: { params: { work_category_slug: string } }) => {
+const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_slug: string }> }) => {
     const client = createClient()
 
     const { data: workCategory, error } = await client
         .from("work_categories")
         .select("*")
-        .eq("slug", params.work_category_slug)
+        .eq("slug", (await params).work_category_slug)
         .single()
 
     if (error || !workCategory) {
