@@ -1,8 +1,6 @@
 import { createClient } from "@/supabase/server"
 import { Database } from "@/supabase/types"
-// import { teleaJobs, partnerJobs } from "./jobs"
 import Link from "next/link"
-import { redirect } from "next/navigation"
 
 const JobWidget = (job: Database['public']['Tables']['jobs']['Row']) => {
     return (
@@ -31,7 +29,7 @@ const Careers = async () => {
 
     if (error) {
         console.error(error)
-        return redirect("/error/500")
+        return null
     }
 
     const teleaJobs = jobs.filter(job => job.is_telea)
