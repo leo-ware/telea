@@ -5,6 +5,7 @@ import { Database } from './types'
 import { cookies } from 'next/headers'
 
 export const createClient = () => {
+    // @ts-ignore
     const cookieStore = cookies()
 
     return createServerClient<Database>(

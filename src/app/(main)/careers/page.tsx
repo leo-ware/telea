@@ -2,6 +2,7 @@ import { createClient } from "@/supabase/server"
 import { Database } from "@/supabase/types"
 // import { teleaJobs, partnerJobs } from "./jobs"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 const JobWidget = (job: Database['public']['Tables']['jobs']['Row']) => {
     return (
@@ -30,7 +31,7 @@ const Careers = async () => {
 
     if (error) {
         console.error(error)
-        throw new Error("Failed to fetch jobs")
+        return redirect("/error/500")
     }
 
     const teleaJobs = jobs.filter(job => job.is_telea)
@@ -39,10 +40,10 @@ const Careers = async () => {
     return (
         <div>
             <div className="w-full flex flex-col items-center bg-prussian-blue text-white py-10">
-                <div className="text-[80px]">Careers</div>
+                <div className="text-[80px]">Opportunities</div>
 
                 <div className={" text-[30px] font-[100] pt-12 pb-8 w-7/12 text-center leading-tight"}>
-                    Explore jobs at Telea and our partners.
+                    Explore jobs and opportunities at Telea and our partners.
                 </div>
             </div>
             <div className="px-8 md:px-20">
