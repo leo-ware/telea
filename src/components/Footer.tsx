@@ -57,8 +57,8 @@ const Footer = async () => {
                         <Link href={"/events"} className="max-w-44">
                             Events
                         </Link>
-                        <Link href={"/careers"} className="max-w-44">
-                            Careers
+                        <Link href={"/opportunities"} className="max-w-44">
+                            Opportunities
                         </Link>
                         <Link href={"/people"} className="max-w-44">
                             People

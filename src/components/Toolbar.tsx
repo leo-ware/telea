@@ -160,8 +160,8 @@ const Toolbar = () => {
                                 <div
                                     className={"my-2 text-2xl "}
                                     onClick={() => setOpen(false)}>
-                                    <Link href={"/careers"}>
-                                        Careers
+                                    <Link href={"/opportunities"}>
+                                        Opportunities
                                     </Link>
                                 </div>
 
