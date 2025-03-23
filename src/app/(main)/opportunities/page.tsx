@@ -38,9 +38,9 @@ const Careers = async () => {
     return (
         <div>
             <div className="w-full flex flex-col items-center bg-prussian-blue text-white py-10">
-                <div className="text-[80px]">Opportunities</div>
+                <div className="text-[50px] md:text-[80px]">Opportunities</div>
 
-                <div className={" text-[30px] font-[100] pt-12 pb-8 w-7/12 text-center leading-tight"}>
+                <div className={" text-[20px] md:text-[30px] font-[100] pt-8 md:pt-12 pb-8 w-7/12 text-center leading-tight"}>
                     Explore jobs and opportunities at Telea and our partners.
                 </div>
             </div>
