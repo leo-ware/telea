@@ -9,10 +9,17 @@ npm run dev          # Start dev server
 npm run build        # Production build
 npm run lint         # ESLint (next lint)
 npm run gen-types    # Regenerate Supabase TypeScript types → src/supabase/types.ts
-yarn run tsc         # Typecheck
+npm run tsc          # Typecheck
 ```
 
-Use `yarn run tsc` before returning to the user when you change the code in any significant way.
+> **Package manager:** This project uses **npm**. Do not use yarn.
+
+### Supabase CLI
+The Supabase CLI is available via `npx supabase`. Requires login first (`npx supabase login`).
+- **Generate types:** `npx supabase gen types typescript --project-id rbdxrsvwmsbsivvedzyv > src/supabase/types.ts` (or `npm run gen-types`)
+- Run `npm run gen-types` after any database schema changes to keep `src/supabase/types.ts` in sync.
+
+Use `npm run tsc` before returning to the user when you change the code in any significant way.
 We need to verify that it still typechecks after your changes.
 
 
