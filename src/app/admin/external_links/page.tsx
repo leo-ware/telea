@@ -67,10 +67,40 @@ const ExternalLinks = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {editLink.map((link) => (
-                        <tr key={link.name}>
-                            <td className="text-wrap">{link.name}</td>
-                            <td className="text-wrap">{link.description}</td>
+                    {editLink.map((link, idx) => (
+                        <tr key={idx}>
+                            <td className="text-wrap">
+                                {isEditing && !links.find(l => l.name === link.name) ? (
+                                    <div className="p-1 pr-2 border border-gray-300 rounded-md">
+                                        <input
+                                            className="w-full"
+                                            type="text"
+                                            placeholder="name"
+                                            value={link.name}
+                                            onChange={(e) => {
+                                                const idx = editLink.indexOf(link)
+                                                setEditLink(prev => prev.map((l, i) => i === idx ? { ...l, name: e.target.value } : l))
+                                            }}
+                                        />
+                                    </div>
+                                ) : link.name}
+                            </td>
+                            <td className="text-wrap">
+                                {isEditing && !links.find(l => l.name === link.name) ? (
+                                    <div className="p-1 pr-2 border border-gray-300 rounded-md">
+                                        <input
+                                            className="w-full"
+                                            type="text"
+                                            placeholder="description"
+                                            value={link.description || ""}
+                                            onChange={(e) => {
+                                                const idx = editLink.indexOf(link)
+                                                setEditLink(prev => prev.map((l, i) => i === idx ? { ...l, description: e.target.value } : l))
+                                            }}
+                                        />
+                                    </div>
+                                ) : link.description}
+                            </td>
                             <td className="text-wrap">
                                 <div className={`p-1 pr-2 ${isEditing ? "border border-gray-300 rounded-md" : ""}`}>
                                     <input
@@ -110,6 +140,11 @@ const ExternalLinks = () => {
                             className="bg-blue-500 text-white px-2 py-1 rounded-md"
                             onClick={handleSave}>
                             Save
+                        </button>
+                        <button
+                            className="bg-green-500 text-white px-2 py-1 rounded-md"
+                            onClick={() => setEditLink(prev => [...prev, { name: "", description: "", url: "" }])}>
+                            Add Link
                         </button>
                     </div>
                 )}

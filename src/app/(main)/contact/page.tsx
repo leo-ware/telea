@@ -88,7 +88,7 @@ const Contact = () => {
                 <p className="my-4 mx-4">
                     For general and media inquiries, contact us at
                     <span className="underline ml-1">
-                        contact@teleainsights.com
+                        info@teleainsights.com
                     </span>
                 </p>
 

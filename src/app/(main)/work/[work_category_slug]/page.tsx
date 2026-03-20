@@ -52,6 +52,17 @@ const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_sl
                 <Markdown>{workCategory.description}</Markdown>
             </div>
 
+            {workCategory.services_title && (
+                <div className="px-4 sm:px-8 md:px-40 py-8">
+                    <h2 className="text-[30px] md:text-[40px] font-bold mb-4">
+                        {workCategory.services_title}
+                    </h2>
+                    <div className="font-thin text-[20px] md:text-[24px] leading-relaxed space-children-p">
+                        <Markdown>{workCategory.services_body || ""}</Markdown>
+                    </div>
+                </div>
+            )}
+
             <div className="relative flex flex-col gap-8 lg:gap-12 lg:grid lg:grid-cols-10 pb-6 lg:py-20 leading-tight px-4 sm:px-8 md:px-40 text-[24px]">
                 {clientCategories?.toSorted((a, b) => (a.order || 0) - (b.order || 0)).map((clientCategory) => (
                     <>
@@ -67,6 +78,17 @@ const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_sl
                     </>
                 ))}
             </div>
+
+            {workCategory.footer_title && (
+                <div className="px-4 sm:px-8 md:px-40 py-8">
+                    <h2 className="text-[30px] md:text-[40px] font-bold mb-4">
+                        {workCategory.footer_title}
+                    </h2>
+                    <div className="font-thin text-[20px] md:text-[24px] leading-relaxed space-children-p">
+                        <Markdown>{workCategory.footer_body || ""}</Markdown>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

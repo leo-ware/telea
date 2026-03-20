@@ -488,6 +488,34 @@ const EditWorkCategoryPage = ({ params }: { params: Promise<{ id: string }> }) =
                 </div>
 
                 <div className="w-full">
+                    <label className="text-sm font-bold">Services Title</label>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <input
+                            type="text"
+                            className="w-full p-2 rounded-md"
+                            value={editState?.services_title || ""}
+                            disabled={!isEditing}
+                            placeholder="Services Title"
+                            onChange={(e) => setEditState(editState && { ...editState, services_title: e.target.value })}
+                        />
+                    </div>
+                </div>
+
+                <div className="w-full">
+                    <label className="text-sm font-bold">Services Body</label>
+                    <div className="text-xs text-gray-500">Markdown is supported</div>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <AutoGrowTextarea
+                            className="w-full p-2 rounded-md"
+                            placeholder="Services Body"
+                            value={editState?.services_body || ""}
+                            disabled={!isEditing}
+                            onChange={(e) => setEditState(editState && { ...editState, services_body: e.target.value })}
+                        />
+                    </div>
+                </div>
+
+                <div className="w-full">
                     <label className="text-sm font-bold">Image</label>
                     {!editState?.img && <div className="italic text-gray-500">No Image Selected</div>}
                     <img src={editState?.img || ""} className="w-64 max-w-full h-auto" />
@@ -524,6 +552,34 @@ const EditWorkCategoryPage = ({ params }: { params: Promise<{ id: string }> }) =
                             value={editState?.landing_page_link_text || ""}
                             disabled={!isEditing}
                             onChange={(e) => setEditState(editState && { ...editState, landing_page_link_text: e.target.value })}
+                        />
+                    </div>
+                </div>
+
+                <div className="w-full">
+                    <label className="text-sm font-bold">Footer Title</label>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <input
+                            type="text"
+                            className="w-full p-2 rounded-md"
+                            value={editState?.footer_title || ""}
+                            disabled={!isEditing}
+                            placeholder="Footer Title"
+                            onChange={(e) => setEditState(editState && { ...editState, footer_title: e.target.value })}
+                        />
+                    </div>
+                </div>
+
+                <div className="w-full">
+                    <label className="text-sm font-bold">Footer Body</label>
+                    <div className="text-xs text-gray-500">Markdown is supported</div>
+                    <div className="w-full h-fit border border-gray-300 rounded-md">
+                        <AutoGrowTextarea
+                            className="w-full p-2 rounded-md"
+                            placeholder="Footer Body"
+                            value={editState?.footer_body || ""}
+                            disabled={!isEditing}
+                            onChange={(e) => setEditState(editState && { ...editState, footer_body: e.target.value })}
                         />
                     </div>
                 </div>

@@ -145,6 +145,7 @@ export type Database = {
       events: {
         Row: {
           boost: boolean
+          category: string | null
           date: string | null
           description: string | null
           id: number
@@ -156,6 +157,7 @@ export type Database = {
         }
         Insert: {
           boost?: boolean
+          category?: string | null
           date?: string | null
           description?: string | null
           id?: number
@@ -167,6 +169,7 @@ export type Database = {
         }
         Update: {
           boost?: boolean
+          category?: string | null
           date?: string | null
           description?: string | null
           id?: number

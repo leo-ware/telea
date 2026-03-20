@@ -134,6 +134,20 @@ const EventPage = ({ params }: { params: Promise<{ event_id: string }> }) => {
                 <label>Boost</label>
             </div>
 
+            <div className="flex flex-row items-center gap-4 mb-4">
+                <label>Category</label>
+                <select
+                    disabled={!editMode}
+                    className="border border-gray-300 rounded-md p-2"
+                    value={eventState.category || ""}
+                    onChange={(e) => setEventState({ ...eventState, category: e.target.value || null })}
+                >
+                    <option value="">Regular Event</option>
+                    <option value="telea_talk">Telea Talk</option>
+                    <option value="media_appearance">Media Appearance</option>
+                </select>
+            </div>
+
             <label>Title</label>
             <input
                 disabled={!editMode}

@@ -8,20 +8,30 @@ const Events = async () => {
 
     const client = createClient()
 
-    const { data: upcomingEvents, error: upcomingEventsError } = await client
+    const { data: upcomingEvents } = await client
         .from('events')
         .select('*')
         .order('date', { ascending: true })
         .gte('date', new Date().toISOString())
         .limit(3)
-    
-    const { data: pastEvents, error: pastEventsError } = await client
+
+    const { data: pastTeleaTalks } = await client
         .from('events')
         .select('*')
         .order('boost', { ascending: false })
         .order('date', { ascending: false })
         .lt('date', new Date().toISOString())
         .eq('show', true)
+        .eq('category', 'telea_talk')
+
+    const { data: pastMediaAppearances } = await client
+        .from('events')
+        .select('*')
+        .order('boost', { ascending: false })
+        .order('date', { ascending: false })
+        .lt('date', new Date().toISOString())
+        .eq('show', true)
+        .eq('category', 'media_appearance')
 
     return (
         <div className="w-full h-full">
@@ -35,20 +45,33 @@ const Events = async () => {
 
             <div className="w-full">
                 <EventsVideo />
-                {/* <video
-                    className="video-noplay"
-                    autoPlay
-                    loop
-                    playsInline
-                    muted>
-                    <source
-                    src={"https://rbdxrsvwmsbsivvedzyv.supabase.co/storage/v1/object/public/video/teleatalksloop4.mp4?t=2024-11-27T18%3A32%3A58.104Z"}
-                    type="video/mp4"
-                    />
-                </video> */}
             </div>
 
             <div className="relative flex flex-col gap-6 lg:gap-12 lg:grid grid-cols-12 py-20 leading-tight px-4 md:px-20 text-[24px]">
+
+                {/* Upcoming Events */}
+                {upcomingEvents && upcomingEvents.length > 0 && (
+                    <>
+                        <div className="font-bold col-span-2 col-start-3 text-3xl">Upcoming Events</div>
+
+                        {upcomingEvents.map(talk => (
+                            <div key={talk.id} className="col-span-10 col-start-3 lg:grid grid-cols-subgrid">
+                                <div className="col-span-2 col-start-1">
+                                    <div className="text-md">{talk.title}</div>
+                                    <div className="text-md md:text-sm pt-4">{talk.date}</div>
+                                    <div className="text-sm">{talk.location}</div>
+                                </div>
+                                <div className="font-thin col-span-6 col-start-3">
+                                    <div>{talk.description}</div>
+                                </div>
+                            </div>
+                        ))}
+
+                        <div className="col-start-1 col-span-12 border-b border-black" />
+                    </>
+                )}
+
+                {/* Telea Talks Blurb */}
                 <>
                     <div className=" col-span-2 col-start-3 font-bold">Telea Talks</div>
                     <div className="font-thin col-span-6 col-start-5">
@@ -62,57 +85,70 @@ const Events = async () => {
                             <div>Find all Telea Talks on YouTube</div>
                         </div>
                     </div>
-                    
                 </>
 
                 <div className="col-start-1 col-span-12 border-b border-black" />
-                <div className="font-bold col-span-2 col-start-3 text-3xl">Upcoming Events</div>
 
-                {(!upcomingEvents || upcomingEvents.length === 0) &&
-                    <div className="italic text-gray-500 col-span-2 col-start-5">No upcoming events scheduled</div>}
-                {upcomingEvents && upcomingEvents.map(talk => (
+                {/* Past Telea Talks */}
+                {pastTeleaTalks && pastTeleaTalks.length > 0 && (
                     <>
-                        <div className=" col-span-2 col-start-3">
-                            <div className="text-md">{talk.title}</div>
-                            <div className="text-md md:text-sm pt-4">{talk.date}</div>
-                            <div className="text-sm">{talk.location}</div>
-                        </div>
-                        <div className="font-thin col-span-6 col-start-5">
-                            {/* <div className="text-lg font-bold"></div> */}
-
-                            <div>{talk.description}</div>
-                        </div>
+                        <div className="font-bold col-span-2 col-start-3 text-3xl">Past Telea Talks</div>
+                        {pastTeleaTalks.map(talk => (
+                            <div key={talk.id} className="col-span-10 col-start-3 lg:grid grid-cols-subgrid">
+                                <div className="col-span-2 col-start-1">
+                                    <div>{talk.title}</div>
+                                </div>
+                                <div className="mb-10 font-thin col-span-6 col-start-3">
+                                    <div>{talk.description}</div>
+                                    {talk.youtube_embed_link &&
+                                        <YouTube
+                                            className="w-full max-w-[500px] h-80 pt-10"
+                                            embedLink={talk.youtube_embed_link} />}
+                                </div>
+                            </div>
+                        ))}
                     </>
-                ))}
+                )}
 
-                <div className="col-start-1 col-span-12 border-b border-black" />
-                <div className="font-bold col-span-2 col-start-3 text-3xl">Past Events</div>
-                {(!pastEvents || pastEvents.length === 0) &&
-                    <div className="italic text-gray-500 col-span-2 col-start-5">No past events</div>}
-                {pastEvents && pastEvents.map(talk => (
-                    <>
-                        <div className=" col-span-2 col-start-3">
-                            <div>{talk.title}</div>
-                            {/* <div className="text-sm pt-4">{talk.date}</div> */}
-                            {/* <div className="text-sm">{talk.location}</div> */}
-                        </div>
-                        <div className="mb-10 font-thin col-span-6 col-start-5">
-                            <div>{talk.description}</div>
-                            {talk.youtube_embed_link &&
-                                <YouTube
-                                    className="w-full max-w-[500px] h-80 pt-10"
-                                    embedLink={talk.youtube_embed_link} />}
-                        </div>
-                    </>
-                ))}
-
-                <div className="col-start-1 col-span-12 border-b border-black" />
+                {/* Nominate a Speaker — flows directly after Telea Talks, no divider */}
                 <div className="font-bold col-span-2 col-start-3 text-3xl">Nominate a Speaker</div>
                 <div className="font-thin col-span-6 col-start-5">
                     <div className="h-[2px]" />
                     Know someone who would be a great speaker for Telea Talks?
                     <div className="h-4" />
                     Nominate them <Link href={"/contact"} className="underline">here!</Link>
+                </div>
+
+                {/* Past Media Appearances */}
+                {pastMediaAppearances && pastMediaAppearances.length > 0 && (
+                    <>
+                        <div className="col-start-1 col-span-12 border-b border-black" />
+                        <div className="font-bold col-span-2 col-start-3 text-3xl">Media Appearances</div>
+                        {pastMediaAppearances.map(talk => (
+                            <div key={talk.id} className="col-span-10 col-start-3 lg:grid grid-cols-subgrid">
+                                <div className="col-span-2 col-start-1">
+                                    <div>{talk.title}</div>
+                                </div>
+                                <div className="mb-10 font-thin col-span-6 col-start-3">
+                                    <div>{talk.description}</div>
+                                    {talk.youtube_embed_link &&
+                                        <YouTube
+                                            className="w-full max-w-[500px] h-80 pt-10"
+                                            embedLink={talk.youtube_embed_link} />}
+                                </div>
+                            </div>
+                        ))}
+                    </>
+                )}
+
+                {/* Press Kit */}
+                <div className="col-start-1 col-span-12 border-b border-black" />
+                <div className="font-bold col-span-2 col-start-3 text-3xl">Press Kit</div>
+                <div className="font-thin col-span-6 col-start-5">
+                    <div className="h-[2px]" />
+                    Looking for logos, bios, or media resources? Our press kit has everything you need.
+                    <div className="h-4" />
+                    <Link href={"/contact"} className="underline">Request our press kit</Link>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FaYoutube } from "react-icons/fa"
 import { FaInstagram, FaLinkedin } from "react-icons/fa6"
+import { SiSubstack } from "react-icons/si"
 import { IoMdArrowDropdown, IoMdArrowDropright, IoMdClose, IoMdMenu } from "react-icons/io"
 import { LuSendHorizonal } from "react-icons/lu"
 import { createClient } from "@/supabase/client"
@@ -160,6 +161,14 @@ const Toolbar = () => {
                                 <div
                                     className={"my-2 text-2xl "}
                                     onClick={() => setOpen(false)}>
+                                    <Link href={"/writing"}>
+                                        Writing & Insights
+                                    </Link>
+                                </div>
+
+                                <div
+                                    className={"my-2 text-2xl "}
+                                    onClick={() => setOpen(false)}>
                                     <Link href={"/opportunities"}>
                                         Opportunities
                                     </Link>
@@ -213,6 +222,9 @@ const Toolbar = () => {
                                 </Link>
                                 <Link href="/external/instagram" target="_blank">
                                     <FaInstagram size={24} color="white" />
+                                </Link>
+                                <Link href="/external/substack" target="_blank">
+                                    <SiSubstack size={24} color="white" />
                                 </Link>
                             </div>
 

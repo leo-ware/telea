@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import Logo from "./Logo"
 import { FaArrowRight } from "react-icons/fa6"
@@ -68,14 +69,17 @@ const Footer = async () => {
 
             </div>
 
-            <div>
-                <Link href="/">
-                    <Logo width={150} />
-                </Link>
-                <Link href="/contact" className="flex items-center text-lg gap-4 md:ml-[32px] mt-2">
-                    Contact Us <FaArrowRight />
-                </Link>
-                <div className="flex items-center text-lg gap-4 md:ml-[32px] mt-4 text-xs">© {new Date().getFullYear()} Telea Insights</div>
+            <div className="flex items-center gap-6">
+                <Image src="/img/1_percent_planet.webp" alt="1% for the Planet" width={70} height={70} />
+                <div>
+                    <Link href="/">
+                        <Logo width={150} />
+                    </Link>
+                    <Link href="/contact" className="flex items-center text-lg gap-4 md:ml-[32px] mt-2">
+                        Contact Us <FaArrowRight />
+                    </Link>
+                    <div className="flex items-center text-lg gap-4 md:ml-[32px] mt-4 text-xs">© {new Date().getFullYear()} Telea Insights</div>
+                </div>
             </div>
         </div>
     )

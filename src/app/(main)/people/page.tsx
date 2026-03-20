@@ -58,7 +58,7 @@ const People = async () => {
                     ))}
                 </div>
 
-                <Link href="/careers" className="text-xl font-bold flex gap-4 items-center mb-10">
+                <Link href="/opportunities" className="text-xl font-bold flex gap-4 items-center mb-10">
                     Join Our Team <FaArrowRight />
                 </Link>
             </div>
