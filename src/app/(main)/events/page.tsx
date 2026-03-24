@@ -80,10 +80,10 @@ const Events = async () => {
                         along with guests engaged in business and finance, academic leaders, youth activists, writers,
                         artists and philanthropists. Our talks feature diverse voices and innovative ideas, offering
                         valuable insights and fostering meaningful discussions.
-                        <div className="underline mt-4 flex gap-1 items-center text-sm cursor-pointer">
+                        <Link href="/external/youtube" className="underline mt-4 flex gap-1 items-center text-sm cursor-pointer">
                             <FaYoutube />
                             <div>Find all Telea Talks on YouTube</div>
-                        </div>
+                        </Link>
                     </div>
                 </>
 
