@@ -3,6 +3,8 @@ import { createClient } from "@/supabase/server"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import Markdown from "react-markdown"
+import rehypeRaw from "rehype-raw"
+import remarkGfm from "remark-gfm"
 
 const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_slug: string }> }) => {
     const client = createClient()
@@ -49,7 +51,7 @@ const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_sl
                 {/* <p className="mb-4">
                     {workCategory.description}
                 </p> */}
-                <Markdown>{workCategory.description}</Markdown>
+                <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{workCategory.description}</Markdown>
             </div>
 
             {workCategory.services_title && (
@@ -58,7 +60,7 @@ const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_sl
                         {workCategory.services_title}
                     </h2>
                     <div className="font-thin text-[20px] md:text-[24px] leading-relaxed space-children-p">
-                        <Markdown>{workCategory.services_body || ""}</Markdown>
+                        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{workCategory.services_body || ""}</Markdown>
                     </div>
                 </div>
             )}
@@ -85,7 +87,7 @@ const WorkCategoryPage = async ({ params }: { params: Promise<{ work_category_sl
                         {workCategory.footer_title}
                     </h2>
                     <div className="font-thin text-[20px] md:text-[24px] leading-relaxed space-children-p">
-                        <Markdown>{workCategory.footer_body || ""}</Markdown>
+                        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{workCategory.footer_body || ""}</Markdown>
                     </div>
                 </div>
             )}
