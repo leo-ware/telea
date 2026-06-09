@@ -1,4 +1,4 @@
-import Markdown from "@/components/Markdown"
+import Markdown from "@/components/Markdown";
 
 const content = `
 # Technical Info
@@ -7,13 +7,13 @@ const content = `
 I am Leo. I built this website in 2024.
 If you need help with something, my permanent email address is leobpware@gmail.com.
 
-**Update 2-27/2025:**
-Github lfs is being annoying about hosting video files on the free tier. So, just don't fetch these and don't commit to them when you edit the repo.
+**Update 2/27/2025:**
+Github lfs is being annoying about hosting video files on the free tier. So, just don't commit them when you edit the repo.
 
 
 ## Code
 
-This website was built with Next.js and Tailwind CSS. The 
+This website was built with Next.js and Tailwind CSS. The
 code is written in Typescript and is publicly available on github at
 [https://github.com/leo-ware/telea](https://github.com/leo-ware/telea).
 I'm making the code publicly available because it will make it easier for someone to maintain
@@ -24,15 +24,26 @@ in the unlikely event that I can't be reached in the future.
 This website is hosted on Vercel. This is free and industry standard. The vercel deployment
 is under my (Leo's) account. Contact me if there are any issues with this.
 
-I do not control the domain name, teleainsights.com. Last time I dealt with this (November 2024), it was 
+I do not control the domain name, teleainsights.com. Last time I dealt with this (November 2024), it was
 controlled by Eddie Joffe, whose email was ejoffe@netzonetech.com.
+
+**Update 6/9/26** Eddie has transferred control of the domain to Nitin's GoDaddy account,
+to which I also have access. Lmk if you need help with this.
 
 ## Authentication
 
-Authenication uses Google OAuth. **Anyone with a Telea email can log in and edit the content of this website.**
+Authenication uses Google OAuth. Anyone with a Telea email can log in and edit the content of this website.
 This can theoretically be changed if needed. You cannot use Google OAuth with a non-Telea email.
-The reaon for this is that this app is registered with the teleainsights google organization, 
+The reason for this is that this app is registered with the teleainsights google organization,
 and I told them it is for internal use only, which has laxer verification requirements.
+
+**Update 6/9/26**: I have locked creation of new users on Supabase as a security hardening measure.
+To create a new admin user, go to the Supabase dashboard (controlled by nitin@teleainsights.com)
+and manually invite them. Google OAuth will still only work with @teleainsights.com email addresses.
+
+The auth is managed by Supabase. Supabase decides who is and is not a user, and modifications
+to the db are managed via a direct relationship between the user and Supabase. My code is basically
+not involved.
 
 There is only one user who can log in without a Telea email, and that is me, Leo. More of these accounts could
 be created if needed.
@@ -52,6 +63,9 @@ Nitin (nitin@teleinsights.com) has an account on supabase with admin access.
 I use the Telea mailchimp system to send emails. This happens when a user submits the contact form.
 These emails get sent to info@teleinsights.com.
 
+**Update 6/9/26**: It appears you can change the delivery address of the contact messages
+by changing the primary email address associated with the MailChimp account.
+
 I am not using a documented API for this. I just hit the url endpoint used by the mailchimp
 embedded contact us form. This is likely not robust. So, as a backup, messages are copied to
 the inbox in the admin dashboard.
@@ -61,11 +75,31 @@ Mailchimp has an upcharge for their official email API.
 
 ### Markdown
 
-Markdown (including this page) is rendered using [react-markdown](https://github.com/remarkjs/react-markdown) 
+Markdown (including this page) is rendered using [react-markdown](https://github.com/remarkjs/react-markdown)
 and styled with tailwind typography.
 
+# Bus Number == 0
 
-`
-const Page = () => <Markdown content={content} />
+Suppose I am unreachable and you need to make changes to the site. Here are the steps you would
+follow:
 
-export default Page
+1. Fork the GitHub repo
+2. Create a new Vercel account and spin up an instance
+3. Point the Vercel instance at your fork of the GitHub repo
+4. Point the GoDaddy dns at the new Vercel instance
+5. Run the dev server with \`npm run dev\`
+6. Make sure you can login and edit stuff on the development server
+
+The only step here not reproducable by a random person is changing the GoDaddy config.
+If Nitin is also unreachable, you should still be able to take control of his account
+(nitin@teleainsights.com) via teleainsights.com Google workspace, use this to get into
+GoDaddy, and redirect the DNS.
+
+This would be extremely high hassle, but I think it would be doable, especially if you
+have ChatGPT.
+
+
+`;
+const Page = () => <Markdown content={content} />;
+
+export default Page;
